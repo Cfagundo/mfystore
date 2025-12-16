@@ -64,10 +64,16 @@ const pathPrice = (price) => {
 const mapColorToHex = (name) => {
     if (!name) return null;
     const n = name.toLowerCase();
+    // Map text names to the Hex codes your app expects
     if (n.includes('black')) return '#000000';
     if (n.includes('grey') || n.includes('gray')) return '#3F3F3F';
     if (n.includes('silver')) return '#B8B8B8';
     if (n.includes('white')) return '#FFFFFF';
+    if (n.includes('red')) return '#FF0000';
+    if (n.includes('blue')) return '#0000FF';
+    // If it's already a hex code (e.g. user entered #123456 in Shopify), return it
+    if (n.startsWith('#')) return n;
+
     return '#000000'; // Fallback
 };
 

@@ -51,15 +51,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
         }
     };
 
-    // Helper to map color hex to name
-    const getColorName = (hex) => {
-        switch (hex) {
-            case '#000000': return 'MATTE BLACK';
-            case '#3F3F3F': return 'MATTE GREY';
-            case '#B8B8B8': return 'MATTE SILVER';
-            default: return '';
-        }
-    };
+
 
     // Derived product code based on selection
     // Assumes product.code is the base name e.g. "ONE PIECE" if originally "ONE PIECE - MATTE BLACK"
@@ -89,6 +81,30 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
         }, 1500);
     };
 
+    // Determine unique colors from variants
+    const uniqueColors = React.useMemo(() => {
+        if (!product?.variants) return [];
+        const colors = new Set();
+        return product.variants.filter(v => {
+            if (colors.has(v.color)) return false;
+            colors.add(v.color);
+            return true;
+        }).map(v => v.color).filter(Boolean);
+    }, [product]);
+
+    // Helper to map color hex to name (Expanded for safety)
+    const getColorName = (hex) => {
+        if (!hex) return '';
+        const h = hex.toUpperCase();
+        if (h === '#000000') return 'MATTE BLACK';
+        if (h === '#3F3F3F' || h === '#3E3E3E') return 'MATTE GREY';
+        if (h === '#B8B8B8' || h === '#C0C0C0') return 'MATTE SILVER';
+        if (h === '#FFFFFF') return 'MATTE WHITE';
+        return 'CUSTOM COLOR'; // Fallback
+    };
+
+    // ... (rest of logic)
+
     return (
         <div className="product-detail-container page-transition">
             <button className="back-home-btn" onClick={() => navigate(-1)}>
@@ -99,7 +115,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
             <div className="product-detail-main">
 
                 <div className="color-selector">
-                    {['#000000', '#3F3F3F', '#B8B8B8'].map(color => (
+                    {uniqueColors.length > 0 ? uniqueColors.map(color => (
                         <button
                             key={color}
                             className={`color-option ${selectedColor === color ? 'active' : ''}`}
@@ -109,7 +125,16 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                 setCurrentImageIndex(0); // Reset carousel on color change
                             }}
                         />
-                    ))}
+                    )) : (
+                        // Fallback if no variants (single product) - show nothing or single dot?
+                        // If selectedColor exists, show it.
+                        selectedColor && (
+                            <button
+                                className="color-option active"
+                                style={{ backgroundColor: selectedColor }}
+                            />
+                        )
+                    )}
                 </div>
 
                 <button className="nav-arrow left" onClick={handlePrevImage}>
