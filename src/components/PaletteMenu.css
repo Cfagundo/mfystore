@@ -1,0 +1,113 @@
+.palette-menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.palette-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(2, 100px);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.palette-item {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.2s, opacity 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.palette-item:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.palette-label {
+    font-family: var(--font-main);
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.palette-sublabel {
+    margin-top: 5px;
+    font-size: 8px;
+    /* Slightly smaller for the subtext */
+    letter-spacing: 0.5px;
+}
+
+.palette-footer-text {
+    font-family: var(--font-main);
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    text-transform: lowercase;
+}
+
+@media (max-width: 768px) {
+    .palette-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+    }
+
+    .palette-item {
+        height: 100px;
+    }
+}
+
+/* Scrolling Text Animation */
+.palette-footer-text {
+    font-family: var(--font-main);
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    text-transform: lowercase;
+
+    /* Container for masking */
+    width: 200px;
+    /* Width of the visible area */
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    text-align: center;
+    /* Fallback */
+}
+
+.scrolling-text-content {
+    display: inline-block;
+    animation: scrollLoop 4s linear infinite;
+    /* Adjust timing as needed, user asked for ~2s cycle? */
+}
+
+/* User asked for: "vanishes from one side to another with it coming back around every two seconds or 1.5 seconds" */
+/* "sort of like the bottom text on the news" -> Ticker tape */
+@keyframes scrollLoop {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,98 @@
+.home-container {
+    padding-top: 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container {
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.mfy-logo {
+    height: 220px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.logo-scrolling-text {
+    font-family: var(--font-main);
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+    width: 200px;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.logo-scrolling-text .scrolling-text-content {
+    display: inline-block;
+    animation: scrollLoop 4s linear infinite;
+}
+
+@keyframes scrollLoop {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.featured-products {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .featured-products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    font-weight: bold;
+}
+
+.about-section {
+    margin-top: 40px;
+    margin-bottom: 80px;
+    text-align: center;
+    max-width: 800px;
+}
+
+.about-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.about-section p {
+    margin-bottom: 15px;
+}

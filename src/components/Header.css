@@ -1,0 +1,116 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: transparent;
+    z-index: 100;
+}
+
+.info-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: #000;
+    transition: opacity 0.2s;
+}
+
+.info-btn:hover {
+    opacity: 0.7;
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: #000;
+    transition: opacity 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    opacity: 0.7;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-logo-small {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+.header-center-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-logo-img {
+    height: 80px;
+    /* Slightly larger for center */
+    width: auto;
+    object-fit: contain;
+}
+
+.cart-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #000;
+    transition: opacity 0.2s;
+}
+
+.cart-icon-container:hover {
+    opacity: 0.7;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.header-left-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.est-label {
+    font-family: var(--font-main);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.time-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 15px;
+    /* Spacing from cart icon if needed, though gap in header-right handles it */
+}
+
+.time-text {
+    font-family: var(--font-main);
+    font-size: 14px;
+    font-weight: 500;
+}
