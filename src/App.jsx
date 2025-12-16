@@ -11,16 +11,25 @@ import AllProducts from './components/AllProducts';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
-  const [storeProducts, setStoreProducts] = useState(staticProducts); // Start with static, replace with dynamic
+  const [storeProducts, setStoreProducts] = useState(staticProducts); // Start with static, replace with dynamic if Shopify data is available
   const [zoomLevel, setZoomLevel] = useState(0);
 
   React.useEffect(() => {
     // Load products from Shopify
     const loadData = async () => {
-      const liveProducts = await fetchAllProducts();
-      if (liveProducts && liveProducts.length > 0) {
-        console.log("Loaded Shopify Products:", liveProducts);
-        setStoreProducts(liveProducts);
+      try {
+        const liveProducts = await fetchAllProducts();
+        if (liveProducts && liveProducts.length > 0) {
+          console.log("Loaded Shopify Products:", liveProducts);
+          setStoreProducts(liveProducts);
+        } else {
+          console.log("Shopify returned no products or an empty array. Using static products as fallback.");
+          // setStoreProducts is already initialized with staticProducts, so no action needed here.
+        }
+      } catch (error) {
+        console.error("Error fetching products from Shopify:", error);
+        console.log("Falling back to static products due to fetch error.");
+        // setStoreProducts is already initialized with staticProducts, so no action needed here.
       }
     };
     loadData();
