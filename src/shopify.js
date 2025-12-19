@@ -18,46 +18,37 @@ const mapShopifyProduct = (p) => {
     const colorOption = p.options.find(opt => colorOptionParams.includes(opt.name));
 
     // 2. Map Variants
-    // We group variants by color to match the Structure:
-    // variants: [{ color: '#000', image: 'url', images: [...] }]
     const appVariants = [];
-    const colorMap = new Map(); // To ensure uniqueness per color
+    const colorMap = new Map();
 
-    p.variants.forEach(v => {
-        // Find the value for the color option (e.g. "Matte Black")
+    p.variants.forEach((v, index) => {
+        // Find the value for the color option
         const colorValue = v.selectedOptions.find(opt => colorOptionParams.includes(opt.name))?.value;
-        const hexColor = mapColorToHex(colorValue); // Convert to #000000
+        const hexColor = mapColorToHex(colorValue);
 
         if (hexColor && !colorMap.has(hexColor)) {
             let variantImage = v.image?.src;
 
-            // Smart Image Fallback:
-            // If direct link is missing (common Shopify API issue), try to find image by filename matching color name.
+            // Strategy 2: Smart Filename Match
             if (!variantImage && colorValue) {
-                const colorSlug = colorValue.toLowerCase().replace('matte', '').trim(); // "Matte Grey" -> "grey"
-                // Find image containing "grey" in filename
+                const colorSlug = colorValue.toLowerCase().replace('matte', '').trim();
                 const matchedImage = p.images.find(img => img.src.toLowerCase().includes(colorSlug));
-                if (matchedImage) {
-                    variantImage = matchedImage.src;
-                }
+                if (matchedImage) variantImage = matchedImage.src;
             }
 
-            // Final fallback to main image
+            // Strategy 3: Index Match (Last Resort)
+            // If we have 3 variants and 3 images, assume they align.
+            if (!variantImage && index < p.images.length) {
+                variantImage = p.images[index].src;
+            }
+
+            // Fallback to Main Image
             variantImage = variantImage || p.images[0]?.src;
 
-            // Console log for debugging (User can check console)
-            if (!v.image) {
-                console.warn(`Variant ${v.title} (${colorValue}) has NO image assigned in Shopify. Using main image.`);
-            }
-
-            // Build the variant object
             const appVariant = {
-                id: v.id, // Store Shopify ID for checkout
+                id: v.id,
                 color: hexColor,
                 image: variantImage,
-                // If the variant has its own image, that's the main one. 
-                // Getting specific gallery images for a variant is complex in Shopify (requires Metafields or conventions).
-                // For now, we reuse the product's main gallery or just the variant image.
                 images: p.images.map(img => img.src)
             };
 
