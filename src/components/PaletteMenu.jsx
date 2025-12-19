@@ -13,21 +13,32 @@ const PaletteMenu = ({ onFilter, onAction, activeFilter }) => {
             textColor: '#fff'
         },
         {
+            id: 3,
+            type: 'filter',
+            color: '#3F3F3F',
+            label: '#3F3F3F',
+            subLabel: 'MATTE GREY PRODUCTS',
+            bgColor: '#343434', // Adjusted to match gradient flow if needed? No, let's keep original distinct colors.
+            // Actually let's just move the object.
+            bgColor: '#343434',
+            textColor: '#fff'
+        },
+        {
+            id: 7,
+            type: 'filter',
+            color: '#B8B8B8',
+            label: '#B8B8B8',
+            subLabel: 'MATTE SILVER PRODUCTS',
+            bgColor: '#9D9D9D',
+            textColor: '#000'
+        },
+        {
             id: 2,
             type: 'action',
             action: 'about',
             color: '#3F3F3F',
             label: 'ABOUT US',
             bgColor: '#1A1A1A',
-            textColor: '#fff'
-        },
-        {
-            id: 3,
-            type: 'filter',
-            color: '#3F3F3F',
-            label: '#3F3F3F',
-            subLabel: 'MATTE GREY PRODUCTS',
-            bgColor: '#343434',
             textColor: '#fff'
         },
         {
@@ -58,20 +69,11 @@ const PaletteMenu = ({ onFilter, onAction, activeFilter }) => {
             textColor: '#fff'
         },
         {
-            id: 7,
-            type: 'filter',
-            color: '#B8B8B8',
-            label: '#B8B8B8',
-            subLabel: 'MATTE SILVER PRODUCTS',
-            bgColor: '#9D9D9D',
-            textColor: '#000'
-        },
-        {
             id: 8,
             type: 'action',
             action: 'all',
             label: 'ALL PRODUCTS',
-            bgColor: '#B8B8B8',
+            bgColor: '#B8B8B8', // Keep as is
             textColor: '#000'
         },
     ];
