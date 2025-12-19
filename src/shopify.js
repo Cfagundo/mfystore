@@ -10,48 +10,64 @@ const client = Client.buildClient({
 });
 
 // --- Data Mapping Helper ---
-// Maps Shopify product to our App's expected format
+// Maps Shopify product to our App's exact expected format
+// to ensure animations and styles work perfectly.
 const mapShopifyProduct = (p) => {
-    // Attempt to find a "Color" option to determine variant colors
-    const colorOption = p.options.find(opt => opt.name === 'Color' || opt.name === 'Colour');
+    // 1. Identify Color Option Name (e.g. "Color", "Colour")
+    const colorOptionParams = ['Color', 'Colour', 'color', 'colour'];
+    const colorOption = p.options.find(opt => colorOptionParams.includes(opt.name));
 
-    // Map variants
-    const appVariants = p.variants.map(v => {
-        const colorValue = v.selectedOptions.find(opt => opt.name === 'Color' || opt.name === 'Colour')?.value;
-        return {
-            id: v.id,
-            color: mapColorToHex(colorValue), // Helper to convert strings like "Black" to "#000000"
-            image: v.image?.src || p.images[0]?.src,
-            price: v.price.amount,
-            size: v.selectedOptions.find(opt => opt.name === 'Size')?.value
-        };
-    });
+    // 2. Map Variants
+    // We group variants by color to match the Structure:
+    // variants: [{ color: '#000', image: 'url', images: [...] }]
+    const appVariants = [];
+    const colorMap = new Map(); // To ensure uniqueness per color
 
-    // Group variants by unique color for the cycling display logic
-    // We need unique color entries for the "variants" array used in ProductCard cycling
-    const uniqueColorVariants = [];
-    const seenColors = new Set();
+    p.variants.forEach(v => {
+        // Find the value for the color option (e.g. "Matte Black")
+        const colorValue = v.selectedOptions.find(opt => colorOptionParams.includes(opt.name))?.value;
+        const hexColor = mapColorToHex(colorValue); // Convert to #000000
 
-    appVariants.forEach(v => {
-        if (!seenColors.has(v.color) && v.color) {
-            seenColors.add(v.color);
-            uniqueColorVariants.push({
-                color: v.color,
-                image: v.image
-            });
+        if (hexColor && !colorMap.has(hexColor)) {
+            const variantImage = v.image?.src || p.images[0]?.src;
+
+            // Build the variant object
+            const appVariant = {
+                id: v.id, // Store Shopify ID for checkout
+                color: hexColor,
+                image: variantImage,
+                // If the variant has its own image, that's the main one. 
+                // Getting specific gallery images for a variant is complex in Shopify (requires Metafields or conventions).
+                // For now, we reuse the product's main gallery or just the variant image.
+                images: p.images.map(img => img.src)
+            };
+
+            colorMap.set(hexColor, true);
+            appVariants.push(appVariant);
         }
     });
 
+    // 3. Fallback if no variants found (simple product)
+    if (appVariants.length === 0) {
+        appVariants.push({
+            id: p.variants[0]?.id,
+            color: '#000000', // Default
+            image: p.images[0]?.src,
+            images: p.images.map(img => img.src)
+        });
+    }
+
+    // 4. Construct Final Object
     return {
         id: p.id,
-        code: p.title.toUpperCase(), // Using Title as Code for now
-        name: p.title,
+        code: p.title.toUpperCase(),
+        name: p.title, // or p.handle if you prefer "T-SHIRT-01" style
         price: pathPrice(p.variants[0]?.price.amount),
-        category: 'mens', // Default or fetch from collection/tag
-        color: uniqueColorVariants[0]?.color || '#000000', // Default color
-        image: p.images[0]?.src,
-        images: p.images.map(img => img.src),
-        variants: uniqueColorVariants, // For the cycling logic
+        category: p.productType?.toLowerCase() || 'mens',
+        color: appVariants[0]?.color || '#000000',
+        image: p.images[0]?.src, // Main image
+        images: p.images.map(img => img.src), // Gallery
+        variants: appVariants, // Dynamic variants for the cycle
         description: p.descriptionHtml || p.description
     };
 };
@@ -60,21 +76,27 @@ const pathPrice = (price) => {
     return parseFloat(price) || 0;
 }
 
-// Simple map for standard colors - In a real app this might be metadata or more robust
+// Robust Color Map
+// This bridges the gap between Shopify Naming and App Styling
 const mapColorToHex = (name) => {
-    if (!name) return null;
-    const n = name.toLowerCase();
-    // Map text names to the Hex codes your app expects
-    if (n.includes('black')) return '#000000';
-    if (n.includes('grey') || n.includes('gray')) return '#3F3F3F';
-    if (n.includes('silver')) return '#B8B8B8';
-    if (n.includes('white')) return '#FFFFFF';
-    if (n.includes('red')) return '#FF0000';
-    if (n.includes('blue')) return '#0000FF';
-    // If it's already a hex code (e.g. user entered #123456 in Shopify), return it
+    if (!name) return '#000000'; // Default black
+    const n = name.toString().toLowerCase();
+
+    // Direct Hex
     if (n.startsWith('#')) return n;
 
-    return '#000000'; // Fallback
+    // Standard mappings
+    if (n.includes('black')) return '#000000';
+    if (n.includes('grey') || n.includes('gray') || n.includes('anthracite')) return '#3F3F3F';
+    if (n.includes('silver') || n.includes('light grey')) return '#B8B8B8';
+    if (n.includes('white')) return '#FFFFFF';
+    if (n.includes('red') || n.includes('burgundy')) return '#8B0000';
+    if (n.includes('blue') || n.includes('navy')) return '#000080';
+    if (n.includes('green') || n.includes('olive')) return '#556B2F';
+    if (n.includes('beige') || n.includes('sand')) return '#F5F5DC';
+
+    // Fallback for unknown text
+    return '#000000';
 };
 
 // --- API Methods ---
