@@ -58,11 +58,13 @@ const Cart = ({ cartItems }) => {
             <button className="back-home-btn" onClick={() => navigate(-1)}>
                 <ArrowLeft size={24} />
             </button>
+            {/* Redundant mobile header removed
             <div className="cart-header-mobile">
                 <Link to="/"><ChevronLeft /></Link>
                 <span></span>
                 <span></span>
             </div>
+            */}
 
             <div className="cart-layout">
                 {/* Left Column: Form - This is largely decorative in this simple redirect flow, 

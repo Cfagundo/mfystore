@@ -114,3 +114,24 @@
     font-size: 14px;
     font-weight: 500;
 }
+
+@media (max-width: 480px) {
+    .header-logo-img {
+        height: 35px;
+        /* Shrink logo to avoid overlap */
+    }
+
+    .time-display {
+        gap: 5px;
+        font-size: 12px;
+    }
+
+    .time-text {
+        font-size: 12px;
+    }
+
+    .est-label {
+        display: none;
+        /* Hide EST label on mobile to save space */
+    }
+}
