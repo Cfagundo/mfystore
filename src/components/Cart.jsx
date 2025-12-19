@@ -20,10 +20,14 @@ const Cart = ({ cartItems }) => {
             const checkout = await createCheckout();
 
             // 2. Map cart items to line items (Shopify expects variants)
-            const lineItems = cartItems.map(item => ({
-                variantId: item.variants?.find(v => v.color === item.color)?.id || item.id, // Must be variant ID
-                quantity: 1
-            }));
+            const lineItems = cartItems.map(item => {
+                const variant = item.variants?.find(v => v.color === item.color);
+                const variantId = variant?.shopifyId || variant?.id || item.id;
+                return {
+                    variantId: variantId,
+                    quantity: 1
+                };
+            });
 
             // Note: If our static/dummy items don't have real Shopify Variant IDs, this will fail.
             // We need to protect against that.
