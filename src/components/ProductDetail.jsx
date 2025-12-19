@@ -114,8 +114,13 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                 if (product.variants) {
                                     const targetVariant = product.variants.find(v => v.color === color);
                                     if (targetVariant && targetVariant.image) {
-                                        // Find index of this variant's image in the main gallery
-                                        const imgIndex = images.findIndex(img => img === targetVariant.image);
+                                        // Robust Match: Ignore query params (v=...) when comparing URLs
+                                        const cleanVariantImg = targetVariant.image.split('?')[0];
+
+                                        const imgIndex = images.findIndex(img =>
+                                            img.split('?')[0] === cleanVariantImg
+                                        );
+
                                         if (imgIndex !== -1) {
                                             setCurrentImageIndex(imgIndex);
                                         } else {
