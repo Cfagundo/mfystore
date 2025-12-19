@@ -24,19 +24,22 @@ function App() {
           // Create a deep copy of static products to modify
           const mergedProducts = JSON.parse(JSON.stringify(staticProducts));
 
-          mergedProducts.forEach(staticProd => {
-            // Find matching live product (Match by Name/Code)
-            const liveProd = liveProducts.find(p => p.name.toUpperCase() === staticProd.code.toUpperCase() || p.name === staticProd.name);
+          // Create a lookup map for live variants by ID
+          const liveVariantMap = new Map();
+          liveProducts.forEach(p => {
+            p.variants.forEach(v => {
+              liveVariantMap.set(v.id, v);
+            });
+          });
 
-            if (liveProd) {
-              // Update Variants Availability
-              staticProd.variants.forEach(staticVar => {
-                const liveVar = liveProd.variants.find(v => v.color === staticVar.color);
-                if (liveVar) {
-                  staticVar.available = liveVar.available;
-                }
-              });
-            }
+          mergedProducts.forEach(staticProd => {
+            // Sync Variants based on exact Shopify ID match
+            staticProd.variants.forEach(staticVar => {
+              if (staticVar.shopifyId && liveVariantMap.has(staticVar.shopifyId)) {
+                const liveVar = liveVariantMap.get(staticVar.shopifyId);
+                staticVar.available = liveVar.available;
+              }
+            });
           });
 
           console.log("Synced Inventory with Shopify.");
