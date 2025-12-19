@@ -15,7 +15,8 @@ function App() {
   const [zoomLevel, setZoomLevel] = useState(0);
 
   React.useEffect(() => {
-    // Load products from Shopify
+    // STATIC MODE ONLY (Shopify Disabled for Design Preservation)
+    /*
     const loadData = async () => {
       try {
         const liveProducts = await fetchAllProducts();
@@ -24,15 +25,16 @@ function App() {
           setStoreProducts(liveProducts);
         } else {
           console.log("Shopify returned no products or an empty array. Using static products as fallback.");
-          // setStoreProducts is already initialized with staticProducts, so no action needed here.
         }
       } catch (error) {
         console.error("Error fetching products from Shopify:", error);
         console.log("Falling back to static products due to fetch error.");
-        // setStoreProducts is already initialized with staticProducts, so no action needed here.
       }
     };
     loadData();
+    */
+    // Explicitly ensure static products are set
+    setStoreProducts(staticProducts);
   }, []);
 
   const addToCart = (product) => {

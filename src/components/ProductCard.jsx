@@ -43,11 +43,27 @@ const ProductCard = ({ product, displayColor }) => {
                 setCurrentColor(product.color);
             }
         } else {
-            // Default to initial product state (First variant or main product)
-            // No cycling.
-            setCurrentImage(product.image);
-            setCurrentCode(product.code);
-            setCurrentColor(product.color);
+            // Only cycle if variants exist and there are multiple unique colors with images
+            if (product.variants && product.variants.length > 1) {
+                const interval = setInterval(() => {
+                    setCurrentIndex(prevIndex => {
+                        const nextIndex = (prevIndex + 1) % product.variants.length;
+                        const nextVariant = product.variants[nextIndex];
+                        setCurrentImage(nextVariant.image);
+                        setCurrentCode(getDynamicCode(nextVariant));
+                        setCurrentColor(nextVariant.color);
+                        return nextIndex;
+                    });
+                }, 6000); // 6 seconds
+
+                return () => clearInterval(interval);
+            } else {
+                // Default to initial product state (First variant or main product)
+                // No cycling.
+                setCurrentImage(product.image);
+                setCurrentCode(product.code);
+                setCurrentColor(product.color);
+            }
         }
     }, [product, displayColor]);
 
