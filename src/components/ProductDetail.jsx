@@ -110,7 +110,19 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                             style={{ backgroundColor: color }}
                             onClick={() => {
                                 setSelectedColor(color);
-                                setCurrentImageIndex(0); // Reset carousel on color change
+                                // Sync image carousel with selected color
+                                if (product.variants) {
+                                    const targetVariant = product.variants.find(v => v.color === color);
+                                    if (targetVariant && targetVariant.image) {
+                                        // Find index of this variant's image in the main gallery
+                                        const imgIndex = images.findIndex(img => img === targetVariant.image);
+                                        if (imgIndex !== -1) {
+                                            setCurrentImageIndex(imgIndex);
+                                        } else {
+                                            setCurrentImageIndex(0);
+                                        }
+                                    }
+                                }
                             }}
                         />
                     ))}
