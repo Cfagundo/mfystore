@@ -76,7 +76,7 @@ const Home = ({ products }) => {
             <div ref={aboutRef} id="about-section" className="about-section container">
                 <h2>ABOUT MFY</h2>
                 <p>
-                    We are MFY, dedicated to bringing you the rawest aesthetic.
+                    We are MFY, dedicated to bringing you the most sleek aesthetic.
                 </p>
                 <p>
                     Our current palette features #000000, #3F3F3F, and #B8B8B8.
