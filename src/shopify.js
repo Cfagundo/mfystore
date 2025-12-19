@@ -50,7 +50,7 @@ const mapShopifyProduct = (p) => {
                 color: hexColor,
                 image: variantImage,
                 images: p.images.map(img => img.src),
-                available: v.available
+                available: v.availableForSale !== undefined ? v.availableForSale : v.available
             };
 
             colorMap.set(hexColor, true);
