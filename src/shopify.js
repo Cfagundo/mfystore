@@ -31,6 +31,11 @@ const mapShopifyProduct = (p) => {
         if (hexColor && !colorMap.has(hexColor)) {
             const variantImage = v.image?.src || p.images[0]?.src;
 
+            // Console log for debugging (User can check console)
+            if (!v.image) {
+                console.warn(`Variant ${v.title} (${colorValue}) has NO image assigned in Shopify. Using main image.`);
+            }
+
             // Build the variant object
             const appVariant = {
                 id: v.id, // Store Shopify ID for checkout
