@@ -29,7 +29,21 @@ const mapShopifyProduct = (p) => {
         const hexColor = mapColorToHex(colorValue); // Convert to #000000
 
         if (hexColor && !colorMap.has(hexColor)) {
-            const variantImage = v.image?.src || p.images[0]?.src;
+            let variantImage = v.image?.src;
+
+            // Smart Image Fallback:
+            // If direct link is missing (common Shopify API issue), try to find image by filename matching color name.
+            if (!variantImage && colorValue) {
+                const colorSlug = colorValue.toLowerCase().replace('matte', '').trim(); // "Matte Grey" -> "grey"
+                // Find image containing "grey" in filename
+                const matchedImage = p.images.find(img => img.src.toLowerCase().includes(colorSlug));
+                if (matchedImage) {
+                    variantImage = matchedImage.src;
+                }
+            }
+
+            // Final fallback to main image
+            variantImage = variantImage || p.images[0]?.src;
 
             // Console log for debugging (User can check console)
             if (!v.image) {
