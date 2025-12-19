@@ -76,7 +76,7 @@ const ProductCard = ({ product, displayColor }) => {
 
     return (
         <Link
-            to={`/product/${product.id}`}
+            to={`/product/${encodeURIComponent(product.id)}`}
             state={{ selectedColor: currentColor }} // Pass current color to detail page
             className="product-card"
             onMouseMove={handleMouseMove}
