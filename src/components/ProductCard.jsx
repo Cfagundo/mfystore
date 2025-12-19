@@ -32,38 +32,19 @@ const ProductCard = ({ product, displayColor }) => {
     React.useEffect(() => {
         // If a specific color is forced via props (e.g. from Home filter)
         if (displayColor) {
-            // Find variant
             const variant = product.variants?.find(v => v.color === displayColor);
             if (variant) {
                 setCurrentImage(variant.image);
                 setCurrentCode(getDynamicCode(variant));
                 setCurrentColor(variant.color);
             } else if (product.color === displayColor) {
-                // Fallback if it matches main color
                 setCurrentImage(product.image);
                 setCurrentCode(product.code);
                 setCurrentColor(product.color);
             }
-            // Do NOT start cycling interval
-            return;
-        }
-
-        // Only cycle if variants exist and there are multiple unique colors with images
-        if (product.variants && product.variants.length > 1) {
-            const interval = setInterval(() => {
-                setCurrentIndex(prevIndex => {
-                    const nextIndex = (prevIndex + 1) % product.variants.length;
-                    const nextVariant = product.variants[nextIndex];
-                    setCurrentImage(nextVariant.image);
-                    setCurrentCode(getDynamicCode(nextVariant));
-                    setCurrentColor(nextVariant.color);
-                    return nextIndex;
-                });
-            }, 6000); // 6 seconds
-
-            return () => clearInterval(interval);
         } else {
-            // Static
+            // Default to initial product state (First variant or main product)
+            // No cycling.
             setCurrentImage(product.image);
             setCurrentCode(product.code);
             setCurrentColor(product.color);
