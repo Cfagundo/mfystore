@@ -15,64 +15,9 @@ function App() {
   const [zoomLevel, setZoomLevel] = useState(0);
 
   React.useEffect(() => {
-    // HYBRID MODE: Fetch availability from Shopify and merge into Static Data
-    const loadInventory = async () => {
-      try {
-        const liveProducts = await fetchAllProducts();
-
-        if (liveProducts && liveProducts.length > 0) {
-          // Create a deep copy of static products to modify
-          const mergedProducts = JSON.parse(JSON.stringify(staticProducts));
-
-          // Helper to normalize Shopify IDs (Handle Base64 vs Raw GID)
-          const normalizeId = (id) => {
-            if (!id) return '';
-            if (id.includes('gid://')) return id;
-            try {
-              return atob(id);
-            } catch (e) {
-              return id;
-            }
-          };
-
-          // Create a lookup map for live variants by ID
-          const liveVariantMap = new Map();
-          liveProducts.forEach(p => {
-            p.variants.forEach(v => {
-              const decodedId = normalizeId(v.id);
-              // Also strip query params for safety
-              const cleanId = decodedId.split('?')[0];
-              liveVariantMap.set(cleanId, v);
-            });
-          });
-
-          mergedProducts.forEach(staticProd => {
-            // Sync Variants based on exact Shopify ID match
-            staticProd.variants.forEach(staticVar => {
-              if (staticVar.shopifyId) {
-                const cleanStaticId = staticVar.shopifyId.split('?')[0];
-                if (liveVariantMap.has(cleanStaticId)) {
-                  const liveVar = liveVariantMap.get(cleanStaticId);
-                  // Check availableForSale (V2 API) or available (Legacy)
-                  staticVar.available = liveVar.availableForSale !== undefined ? liveVar.availableForSale : liveVar.available;
-                  console.log(`Synced ${staticVar.color}: Available = ${staticVar.available}`);
-                }
-              }
-            });
-          });
-
-          console.log("Synced Inventory with Shopify.");
-          setStoreProducts(mergedProducts);
-        }
-      } catch (error) {
-        console.error("Inventory sync failed:", error);
-      }
-    };
-
-    // Initial load: Static
+    // STATIC MODE: Manual Control
+    // To set "Sold Out", edit 'available: false' directly in src/data/products.js
     setStoreProducts(staticProducts);
-    // Then attempt sync
-    loadInventory();
   }, []);
 
   const addToCart = (product) => {
