@@ -33,7 +33,13 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
 
     // Determine current images based on selection
     const currentVariant = product.variants?.find(v => v.color === selectedColor);
-    const images = currentVariant?.images || product.images || (product.image ? [product.image] : []);
+
+    // STRICT MODE (Option B): Show ONLY the selected variant's image if available.
+    // If you want multiple images per variant, you'd need to map that in shopify.js
+    // For now, this isolates the specific color image.
+    const images = (currentVariant && currentVariant.image)
+        ? [currentVariant.image]
+        : (product.images || (product.image ? [product.image] : []));
 
     const hasMultipleImages = images.length > 1;
 
