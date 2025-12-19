@@ -24,20 +24,39 @@ function App() {
           // Create a deep copy of static products to modify
           const mergedProducts = JSON.parse(JSON.stringify(staticProducts));
 
+          // Helper to normalize Shopify IDs (Handle Base64 vs Raw GID)
+          const normalizeId = (id) => {
+            if (!id) return '';
+            if (id.includes('gid://')) return id;
+            try {
+              return atob(id);
+            } catch (e) {
+              return id;
+            }
+          };
+
           // Create a lookup map for live variants by ID
           const liveVariantMap = new Map();
           liveProducts.forEach(p => {
             p.variants.forEach(v => {
-              liveVariantMap.set(v.id, v);
+              const decodedId = normalizeId(v.id);
+              // Also strip query params for safety
+              const cleanId = decodedId.split('?')[0];
+              liveVariantMap.set(cleanId, v);
             });
           });
 
           mergedProducts.forEach(staticProd => {
             // Sync Variants based on exact Shopify ID match
             staticProd.variants.forEach(staticVar => {
-              if (staticVar.shopifyId && liveVariantMap.has(staticVar.shopifyId)) {
-                const liveVar = liveVariantMap.get(staticVar.shopifyId);
-                staticVar.available = liveVar.available;
+              if (staticVar.shopifyId) {
+                const cleanStaticId = staticVar.shopifyId.split('?')[0];
+                if (liveVariantMap.has(cleanStaticId)) {
+                  const liveVar = liveVariantMap.get(cleanStaticId);
+                  // Check availableForSale (V2 API) or available (Legacy)
+                  staticVar.available = liveVar.availableForSale !== undefined ? liveVar.availableForSale : liveVar.available;
+                  console.log(`Synced ${staticVar.color}: Available = ${staticVar.available}`);
+                }
               }
             });
           });
