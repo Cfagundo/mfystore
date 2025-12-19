@@ -103,39 +103,25 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
             <div className="product-detail-main">
 
                 <div className="color-selector">
-                    {['#000000', '#3F3F3F', '#B8B8B8'].map(color => {
-                        const variantForColor = product.variants?.find(v => v.color === color);
-                        const isAvailable = variantForColor?.available !== false; // Default true if undefined (static mode)
-
-                        return (
-                            <button
-                                key={color}
-                                className={`color-option ${selectedColor === color ? 'active' : ''} ${!isAvailable ? 'sold-out' : ''}`}
-                                style={{
-                                    backgroundColor: color,
-                                    opacity: isAvailable ? 1 : 0.2,
-                                    border: !isAvailable ? '1px solid #ff0000' : 'none', // Optional visual cue
-                                    cursor: isAvailable ? 'pointer' : 'not-allowed'
-                                }}
-                                title={!isAvailable ? "Sold Out" : ""}
-                                onClick={() => {
-                                    // Still allow clicking to see image? User usually wants to see it even if sold out.
-                                    // But maybe prevent checkout.
-                                    setSelectedColor(color);
-                                    // Sync image carousel...
-                                    if (product.variants) {
-                                        const targetVariant = product.variants.find(v => v.color === color);
-                                        if (targetVariant && targetVariant.image) {
-                                            const cleanVariantImg = targetVariant.image.split('?')[0];
-                                            const imgIndex = images.findIndex(img => img.split('?')[0] === cleanVariantImg);
-                                            if (imgIndex !== -1) setCurrentImageIndex(imgIndex);
-                                            else setCurrentImageIndex(0);
-                                        }
+                    {['#000000', '#3F3F3F', '#B8B8B8'].map(color => (
+                        <button
+                            key={color}
+                            className={`color-option ${selectedColor === color ? 'active' : ''}`}
+                            style={{ backgroundColor: color }}
+                            onClick={() => {
+                                setSelectedColor(color);
+                                if (product.variants) {
+                                    const targetVariant = product.variants.find(v => v.color === color);
+                                    if (targetVariant && targetVariant.image) {
+                                        const cleanVariantImg = targetVariant.image.split('?')[0];
+                                        const imgIndex = images.findIndex(img => img.split('?')[0] === cleanVariantImg);
+                                        if (imgIndex !== -1) setCurrentImageIndex(imgIndex);
+                                        else setCurrentImageIndex(0);
                                     }
-                                }}
-                            />
-                        )
-                    })}
+                                }
+                            }}
+                        />
+                    ))}
                 </div>
 
                 <button className="nav-arrow left" onClick={handlePrevImage}>
@@ -175,16 +161,9 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                     <h1 className="detail-code">{dynamicProductCode}</h1>
                     <p className="detail-price">${product.price}</p>
 
-                    {/* Availability Check */}
-                    {currentVariant?.available === false ? (
-                        <div className="sold-out-badge" style={{ marginTop: '20px', color: 'red', fontWeight: 'bold' }}>
-                            SOLD OUT
-                        </div>
-                    ) : (
-                        <button className="add-btn" onClick={() => setIsSizeSelectorOpen(true)}>
-                            <Plus size={32} />
-                        </button>
-                    )}
+                    <button className="add-btn" onClick={() => setIsSizeSelectorOpen(true)}>
+                        <Plus size={32} />
+                    </button>
                 </div>
             </div>
 
@@ -197,35 +176,39 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                         </div>
                     ) : (
                         <div className="size-selector-content">
-                            {/* ... Content ... */}
                             <div className="size-header">
                                 <span className="help-icon">?</span>
-                                <h2>SELECT SIZE</h2>
+                                <h2>{currentVariant?.available === false ? 'UNAVAILABLE' : 'SELECT SIZE'}</h2>
                                 <button className="close-btn" onClick={() => setIsSizeSelectorOpen(false)}>
                                     <X size={24} />
                                 </button>
                             </div>
 
-                            <div className="size-price">${product.price}</div>
+                            {currentVariant?.available === false ? (
+                                <div className="sold-out-overlay-msg" style={{ textAlign: 'center', padding: '40px 0' }}>
+                                    <h3 style={{ fontSize: '24px', marginBottom: '10px' }}>SOLD OUT</h3>
+                                    <p style={{ color: '#666' }}>This color is currently out of stock.</p>
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="size-price">${product.price}</div>
 
-                            <div className="size-grid">
-                                {['SML', 'MED', 'LRG'].map(size => {
-                                    // In refined implementation, we would check size availability here too.
-                                    // For now, if variant (Color) is available, we assume sizes are.
-                                    return (
-                                        <button key={size} className="size-option" onClick={() => handleSizeSelect(size)}>
-                                            {size}
-                                        </button>
-                                    )
-                                })}
-                            </div>
+                                    <div className="size-grid">
+                                        {['SML', 'MED', 'LRG'].map(size => (
+                                            <button key={size} className="size-option" onClick={() => handleSizeSelect(size)}>
+                                                {size}
+                                            </button>
+                                        ))}
+                                    </div>
 
-                            <div className="size-footer">
-                                <span className="info-label">INFORMATION</span>
-                                <p className="info-text">
-                                    {product.description || "Material and care information coming soon."}
-                                </p>
-                            </div>
+                                    <div className="size-footer">
+                                        <span className="info-label">INFORMATION</span>
+                                        <p className="info-text">
+                                            {product.description || "Material and care information coming soon."}
+                                        </p>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     )}
                 </div>
