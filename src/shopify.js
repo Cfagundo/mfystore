@@ -49,7 +49,8 @@ const mapShopifyProduct = (p) => {
                 id: v.id,
                 color: hexColor,
                 image: variantImage,
-                images: p.images.map(img => img.src)
+                images: p.images.map(img => img.src),
+                available: v.available
             };
 
             colorMap.set(hexColor, true);

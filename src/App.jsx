@@ -15,26 +15,42 @@ function App() {
   const [zoomLevel, setZoomLevel] = useState(0);
 
   React.useEffect(() => {
-    // STATIC MODE ONLY (Shopify Disabled for Design Preservation)
-    /*
-    const loadData = async () => {
+    // HYBRID MODE: Fetch availability from Shopify and merge into Static Data
+    const loadInventory = async () => {
       try {
         const liveProducts = await fetchAllProducts();
+
         if (liveProducts && liveProducts.length > 0) {
-          console.log("Loaded Shopify Products:", liveProducts);
-          setStoreProducts(liveProducts);
-        } else {
-          console.log("Shopify returned no products or an empty array. Using static products as fallback.");
+          // Create a deep copy of static products to modify
+          const mergedProducts = JSON.parse(JSON.stringify(staticProducts));
+
+          mergedProducts.forEach(staticProd => {
+            // Find matching live product (Match by Name/Code)
+            const liveProd = liveProducts.find(p => p.name.toUpperCase() === staticProd.code.toUpperCase() || p.name === staticProd.name);
+
+            if (liveProd) {
+              // Update Variants Availability
+              staticProd.variants.forEach(staticVar => {
+                const liveVar = liveProd.variants.find(v => v.color === staticVar.color);
+                if (liveVar) {
+                  staticVar.available = liveVar.available;
+                }
+              });
+            }
+          });
+
+          console.log("Synced Inventory with Shopify.");
+          setStoreProducts(mergedProducts);
         }
       } catch (error) {
-        console.error("Error fetching products from Shopify:", error);
-        console.log("Falling back to static products due to fetch error.");
+        console.error("Inventory sync failed:", error);
       }
     };
-    loadData();
-    */
-    // Explicitly ensure static products are set
+
+    // Initial load: Static
     setStoreProducts(staticProducts);
+    // Then attempt sync
+    loadInventory();
   }, []);
 
   const addToCart = (product) => {
