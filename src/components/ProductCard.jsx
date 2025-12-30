@@ -16,56 +16,13 @@ const ProductCard = ({ product, displayColor }) => {
         }
     };
 
-    const getDynamicCode = (variant) => {
-        if (!variant) return product.code;
-        // Logic from ProductDetail: Split base name and append color
-        const baseName = product.code.includes(' - ') ? product.code.split(' - ')[0] : product.code;
-        return `${baseName} - ${getColorName(variant.color)}`;
-    };
+    // Static display - No cycling or filtering animations
+    const currentImage = product.image;
+    // Base code: strip any suffix if present or just use code
+    const baseCode = product.code.includes(' - ') ? product.code.split(' - ')[0] : product.code;
+    const currentCode = baseCode;
 
-    // State
-    const [currentImage, setCurrentImage] = useState(product.image);
-    const [currentCode, setCurrentCode] = useState(product.code);
-    const [currentColor, setCurrentColor] = useState(product.color); // Default to main product color
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    React.useEffect(() => {
-        // If a specific color is forced via props (e.g. from Home filter)
-        if (displayColor) {
-            const variant = product.variants?.find(v => v.color === displayColor);
-            if (variant) {
-                setCurrentImage(variant.image);
-                setCurrentCode(getDynamicCode(variant));
-                setCurrentColor(variant.color);
-            } else if (product.color === displayColor) {
-                setCurrentImage(product.image);
-                setCurrentCode(product.code);
-                setCurrentColor(product.color);
-            }
-        } else {
-            // Only cycle if variants exist and there are multiple unique colors with images
-            if (product.variants && product.variants.length > 1) {
-                const interval = setInterval(() => {
-                    setCurrentIndex(prevIndex => {
-                        const nextIndex = (prevIndex + 1) % product.variants.length;
-                        const nextVariant = product.variants[nextIndex];
-                        setCurrentImage(nextVariant.image);
-                        setCurrentCode(getDynamicCode(nextVariant));
-                        setCurrentColor(nextVariant.color);
-                        return nextIndex;
-                    });
-                }, 6000); // 6 seconds
-
-                return () => clearInterval(interval);
-            } else {
-                // Default to initial product state (First variant or main product)
-                // No cycling.
-                setCurrentImage(product.image);
-                setCurrentCode(product.code);
-                setCurrentColor(product.color);
-            }
-        }
-    }, [product, displayColor]);
+    // No local state needed for image cycling anymore
 
     const handleMouseMove = (e) => {
         setCursorPos({ x: e.clientX, y: e.clientY });
@@ -74,7 +31,7 @@ const ProductCard = ({ product, displayColor }) => {
     return (
         <Link
             to={`/product/${encodeURIComponent(product.id)}`}
-            state={{ selectedColor: currentColor }} // Pass current color to detail page
+            // No state passed, allowing ProductDetail to default to "All Colors" view
             className="product-card"
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setShowPrice(true)}

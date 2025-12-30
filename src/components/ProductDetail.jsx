@@ -16,24 +16,36 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    // Initialize color from navigation state if available, or default to product color
-    const initialColor = location.state?.selectedColor || product?.color || null;
+    // Initialize color from navigation state if available, but default to NULL (All colors view)
+    const initialColor = location.state?.selectedColor || null;
     const [selectedColor, setSelectedColor] = useState(initialColor);
 
     const [isAdding, setIsAdding] = useState(false);
 
     if (!product) return <div>Product not found</div>;
 
-    // Initialize selectedColor if not set (fallback)
-    React.useEffect(() => {
-        if (!selectedColor && product) {
-            setSelectedColor(product.color);
-        }
-    }, [product, selectedColor]);
+    // Remove the useEffect that auto-selects color. We WANT it to be null initially.
+    // React.useEffect(() => { ... }, []); <-- Removed
 
     // Determine current images based on selection
-    const currentVariant = product.variants?.find(v => v.color === selectedColor);
-    const images = currentVariant?.images || product.images || (product.image ? [product.image] : []);
+    let images = [];
+    let currentVariant = null;
+
+    if (!selectedColor) {
+        // "All Colors" Mode: Show main image of each variant
+        if (product.variants && product.variants.length > 0) {
+            images = product.variants.map(v => v.image).filter(Boolean);
+        } else {
+            images = product.images || (product.image ? [product.image] : []);
+        }
+    } else {
+        // "Specific Color" Mode
+        currentVariant = product.variants?.find(v => v.color === selectedColor);
+        // STRICT MODE: Show ONLY the selected variant's image if available.
+        images = (currentVariant && currentVariant.image)
+            ? [currentVariant.image]
+            : (product.images || []);
+    }
 
     const hasMultipleImages = images.length > 1;
 
@@ -72,7 +84,9 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
 
     // Derived product code based on selection
     const baseName = product.code.includes(' - ') ? product.code.split(' - ')[0] : product.code;
-    const dynamicProductCode = `${baseName} - ${getColorName(selectedColor)}`;
+    const dynamicProductCode = selectedColor
+        ? `${baseName} - ${getColorName(selectedColor)}`
+        : baseName;
 
     const handleSizeSelect = (size) => {
         setIsAdding(true);
@@ -110,15 +124,8 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                             style={{ backgroundColor: color }}
                             onClick={() => {
                                 setSelectedColor(color);
-                                if (product.variants) {
-                                    const targetVariant = product.variants.find(v => v.color === color);
-                                    if (targetVariant && targetVariant.image) {
-                                        const cleanVariantImg = targetVariant.image.split('?')[0];
-                                        const imgIndex = images.findIndex(img => img.split('?')[0] === cleanVariantImg);
-                                        if (imgIndex !== -1) setCurrentImageIndex(imgIndex);
-                                        else setCurrentImageIndex(0);
-                                    }
-                                }
+                                // Since we switch to a filtered list (Single Image Mode), reset index to 0
+                                setCurrentImageIndex(0);
                             }}
                         />
                     ))}
