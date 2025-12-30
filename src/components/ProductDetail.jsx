@@ -41,10 +41,14 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
     } else {
         // "Specific Color" Mode
         currentVariant = product.variants?.find(v => v.color === selectedColor);
-        // STRICT MODE: Show ONLY the selected variant's image if available.
-        images = (currentVariant && currentVariant.image)
-            ? [currentVariant.image]
-            : (product.images || []);
+        // Showcase all images for this variant if available, otherwise fallback to single image
+        if (currentVariant) {
+            images = (currentVariant.images && currentVariant.images.length > 0)
+                ? currentVariant.images
+                : (currentVariant.image ? [currentVariant.image] : []);
+        } else {
+            images = product.images || [];
+        }
     }
 
     const hasMultipleImages = images.length > 1;
@@ -52,9 +56,8 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
     const handlePrevImage = () => {
         if (hasMultipleImages) {
             setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-        } else {
-            navigate(-1); // Default back behavior if no multiple images
         }
+        // Removed navigate(-1) fallback as per user request
     };
 
     const handleNextImage = () => {
