@@ -10,11 +10,27 @@ const Header = ({ cartCount, onZoomClick }) => {
     const isAllProducts = location.pathname === '/all';
 
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [timezone, setTimezone] = useState('');
 
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentTime(new Date());
         }, 1000);
+
+        // Get Local Timezone Abbreviation
+        try {
+            const tz = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
+                .formatToParts(new Date())
+                .find(part => part.type === 'timeZoneName')?.value;
+
+            // Clean up: If it returns "GMT-5" style, keep it. If "Pacific Standard Time", try to abbreviate?
+            // "short" usually gives "EST", "PST", "CST".
+            // Some browsers might give "GMT-5". 
+            if (tz) setTimezone(tz.toUpperCase());
+        } catch (e) {
+            console.error(e);
+        }
+
         return () => clearInterval(timer);
     }, []);
 
@@ -78,7 +94,7 @@ const Header = ({ cartCount, onZoomClick }) => {
 
             <div className="header-right">
                 <div className="time-display">
-                    <span className="est-label" style={{ marginRight: '8px' }}>EST</span>
+                    <span className="est-label" style={{ marginRight: '8px' }}>{timezone}</span>
                     <span className="time-text">{timeString}</span>
                     {isDay ? <Sun size={16} fill="black" stroke="none" /> : <Moon size={16} fill="black" stroke="none" />}
                 </div>
