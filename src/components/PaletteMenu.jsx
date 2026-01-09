@@ -18,8 +18,6 @@ const PaletteMenu = ({ onFilter, onAction, activeFilter }) => {
             color: '#3F3F3F',
             label: '#3F3F3F',
             subLabel: 'MATTE GREY PRODUCTS',
-            bgColor: '#343434', // Adjusted to match gradient flow if needed? No, let's keep original distinct colors.
-            // Actually let's just move the object.
             bgColor: '#343434',
             textColor: '#fff'
         },
@@ -33,13 +31,25 @@ const PaletteMenu = ({ onFilter, onAction, activeFilter }) => {
             textColor: '#000'
         },
         {
-            id: 2,
+            id: 8,
             type: 'action',
-            action: 'about',
-            color: '#3F3F3F',
-            label: 'ABOUT US',
-            bgColor: '#1A1A1A',
-            textColor: '#fff'
+            action: 'all',
+            label: 'ALL PRODUCTS',
+            bgColor: '#B8B8B8', // Keep matching silver/light theme or adjust? User didn't specify color change, just position.
+            // The bgColors seem to follow a gradient.
+            // About was #1A1A1A (Dark). All was #B8B8B8 (Light).
+            // If we put "All" at pos 4, and "About" at pos 8...
+            // Should we swap colors too to keep the gradient?
+            // "can you swap the 'all products model' with the 'about us' model"
+            // Usually means swap the *items*, keeping their inherent properties (colors).
+            // But the gradient...
+            // Let's keep the item's own color ("All" is light, "About" is dark).
+            // This might break the "dark-to-light" flow if it exists.
+            // Let's look: Black -> 343434 -> 9D9D9D -> 1A1A1A (Wait, 9D is Light, 1A is Dark).
+            // The gradient is mixed.
+            // I will just move the item objects.
+            bgColor: '#B8B8B8',
+            textColor: '#000'
         },
         {
             id: 4,
@@ -69,12 +79,13 @@ const PaletteMenu = ({ onFilter, onAction, activeFilter }) => {
             textColor: '#fff'
         },
         {
-            id: 8,
+            id: 2,
             type: 'action',
-            action: 'all',
-            label: 'ALL PRODUCTS',
-            bgColor: '#B8B8B8', // Keep as is
-            textColor: '#000'
+            action: 'about',
+            color: '#3F3F3F',
+            label: 'ABOUT US',
+            bgColor: '#1A1A1A',
+            textColor: '#fff'
         },
     ];
 
