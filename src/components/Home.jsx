@@ -76,16 +76,19 @@ const Home = ({ products }) => {
             <div ref={aboutRef} id="about-section" className="about-section container">
                 <h2>ABOUT MFY</h2>
                 <p>
-                    We are MFY, dedicated to bringing you the most sleek aesthetic.
+                    We are MFY, dedicated to bringing you the most comfortable, sleek aesthetic.
                 </p>
                 <p>
-                    Our current palette features #000000, #3F3F3F, and #B8B8B8.
+                    Our current palette features #000000 (matte black), #3F3F3F (matte silver), and #B8B8B8 (matte white).
                 </p>
                 <p>
-                    Join our affiliate program to earn while you wear.
+                    Contact us to join our affiliate program to earn while you wear.
                 </p>
                 <p>
                     All inventory is held in-house and ships between 2-3 days.
+                </p>
+                <p>
+                    This is season 01!
                 </p>
             </div>
 
