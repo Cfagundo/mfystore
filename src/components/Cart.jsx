@@ -22,7 +22,8 @@ const Cart = ({ cartItems }) => {
             // 2. Map cart items to line items (Shopify expects variants)
             const lineItems = cartItems.map(item => {
                 const variant = item.variants?.find(v => v.color === item.color);
-                const variantId = variant?.shopifyId || variant?.id || item.id;
+                // Prioritize the specific ID passed from ProductDetail selection (item.shopifyId)
+                const variantId = item.shopifyId || variant?.shopifyId || variant?.id || item.id;
                 return {
                     variantId: variantId,
                     quantity: item.quantity || 1
