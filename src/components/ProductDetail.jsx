@@ -184,7 +184,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                                     style={quantity === qty ? { background: '#333', color: '#fff' } : {}}
                                                     onClick={() => setQuantity(quantity === qty ? 1 : qty)}
                                                 >
-                                                    {qty}-BUNDLE
+                                                    {qty}-PACK
                                                 </button>
                                             ))}
                                         </div>
