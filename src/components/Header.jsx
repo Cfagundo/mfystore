@@ -87,7 +87,7 @@ const Header = ({ cartCount, onZoomClick }) => {
                 {/* Removed from left */}
             </div>
 
-            {isCartPage && (
+            {(isCartPage || isProductPage) && (
                 <div className="header-center-logo">
                     <img src="/mfy-logo.png" alt="MFY" className="header-logo-img" />
                 </div>
