@@ -11,9 +11,9 @@ export const products = [
         images: ['/product.png', '/product-model1.png', '/product-model2.png'],
         available: true,
         sizeVariants: {
-            'SML': 'gid://shopify/ProductVariant/52857919209779',
-            'MED': 'gid://shopify/ProductVariant/53009335877939',
-            'LRG': 'gid://shopify/ProductVariant/53009335910707'
+            'SML': { id: 'gid://shopify/ProductVariant/52857919209779', available: true },
+            'MED': { id: 'gid://shopify/ProductVariant/53009335877939', available: true },
+            'LRG': { id: 'gid://shopify/ProductVariant/53009335910707', available: true }
         },
         description: "Constructed from a premium, high-stretch technical blend, this swimsuit provides a smooth, second-skin feel that sculpts and supports without restricting movement. The material features a sophisticated matte finish and is detailed with durable, exposed overlock stitching along the contours to ensure shape retention and long-lasting wear."
     },
@@ -29,9 +29,9 @@ export const products = [
         images: ['/product-dark.png', '/slide2.svg', '/slide3.svg'],
         available: false,
         sizeVariants: {
-            'SML': 'gid://shopify/ProductVariant/52857919242547',
-            'MED': 'gid://shopify/ProductVariant/53009335943475',
-            'LRG': 'gid://shopify/ProductVariant/53009335976243'
+            'SML': { id: 'gid://shopify/ProductVariant/52857919242547', available: false },
+            'MED': { id: 'gid://shopify/ProductVariant/53009335943475', available: false },
+            'LRG': { id: 'gid://shopify/ProductVariant/53009335976243', available: false }
         },
         description: "Constructed from a premium, high-stretch technical blend, this swimsuit provides a smooth, second-skin feel that sculpts and supports without restricting movement. The material features a sophisticated matte finish and is detailed with durable, exposed overlock stitching along the contours to ensure shape retention and long-lasting wear."
     },
@@ -47,9 +47,9 @@ export const products = [
         images: ['/product-grey.png', '/slide2.svg', '/slide3.svg'],
         available: false,
         sizeVariants: {
-            'SML': 'gid://shopify/ProductVariant/52857919275315',
-            'MED': 'gid://shopify/ProductVariant/53009336009011',
-            'LRG': 'gid://shopify/ProductVariant/53009336041779'
+            'SML': { id: 'gid://shopify/ProductVariant/52857919275315', available: false },
+            'MED': { id: 'gid://shopify/ProductVariant/53009336009011', available: false },
+            'LRG': { id: 'gid://shopify/ProductVariant/53009336041779', available: false }
         },
         description: "Constructed from a premium, high-stretch technical blend, this swimsuit provides a smooth, second-skin feel that sculpts and supports without restricting movement. The material features a sophisticated matte finish and is detailed with durable, exposed overlock stitching along the contours to ensure shape retention and long-lasting wear."
     }

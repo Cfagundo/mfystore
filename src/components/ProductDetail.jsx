@@ -43,7 +43,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
         if (!selectedSize) return;
         setIsAdding(true);
 
-        const specificVariantId = product.sizeVariants?.[selectedSize];
+        const specificVariantId = product.sizeVariants?.[selectedSize]?.id;
 
         // Pass the product to the cart
         addToCart({
@@ -154,16 +154,23 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                     </div>
 
                                     <div className="size-grid" style={{ marginBottom: '20px' }}>
-                                        {['SML', 'MED', 'LRG'].map(size => (
-                                            <button
-                                                key={size}
-                                                className={`size-option ${selectedSize === size ? 'active' : ''}`}
-                                                style={selectedSize === size ? { background: '#333', color: '#fff' } : {}}
-                                                onClick={() => setSelectedSize(size)}
-                                            >
-                                                {size}
-                                            </button>
-                                        ))}
+                                        {['SML', 'MED', 'LRG'].map(size => {
+                                            const isSizeAvailable = product.sizeVariants?.[size]?.available !== false;
+                                            return (
+                                                <button
+                                                    key={size}
+                                                    disabled={!isSizeAvailable}
+                                                    className={`size-option ${selectedSize === size ? 'active' : ''}`}
+                                                    style={{
+                                                        ...(selectedSize === size ? { background: '#333', color: '#fff' } : {}),
+                                                        ...(!isSizeAvailable ? { opacity: 0.3, textDecoration: 'line-through', cursor: 'not-allowed' } : {})
+                                                    }}
+                                                    onClick={() => isSizeAvailable && setSelectedSize(size)}
+                                                >
+                                                    {size}
+                                                </button>
+                                            );
+                                        })}
                                     </div>
 
                                     {/* Bundle / Quantity Selector */}
