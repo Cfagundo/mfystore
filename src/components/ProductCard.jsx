@@ -18,9 +18,8 @@ const ProductCard = ({ product, displayColor }) => {
 
     // Static display - No cycling or filtering animations
     const currentImage = product.image;
-    // Base code: strip any suffix if present or just use code
-    const baseCode = product.code.includes(' - ') ? product.code.split(' - ')[0] : product.code;
-    const currentCode = baseCode;
+    // Show full code including color name
+    const currentCode = product.code;
 
     // No local state needed for image cycling anymore
 
