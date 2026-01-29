@@ -97,9 +97,15 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
     const handleAddToCart = () => {
         if (!selectedSize) return;
         setIsAdding(true);
+
+        // Find specific variant ID for the selected size
+        const targetVariant = product.variants?.find(v => v.color === selectedColor);
+        const specificVariantId = targetVariant?.sizeIds?.[selectedSize];
+
         // Pass the dynamic name/code to the cart item
         addToCart({
             ...product,
+            shopifyId: specificVariantId, // Store the specific Size Variant ID
             code: dynamicProductCode, // Override code/name
             name: dynamicProductCode, // Also update name if used
             color: selectedColor,
