@@ -11,14 +11,10 @@ import AllProducts from './components/AllProducts';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
-  const [storeProducts, setStoreProducts] = useState(staticProducts); // Start with static, replace with dynamic if Shopify data is available
+  // const [storeProducts, setStoreProducts] = useState(staticProducts); // Removed state to prevent stale data
   const [zoomLevel, setZoomLevel] = useState(0);
 
-  React.useEffect(() => {
-    // STATIC MODE: Manual Control
-    // To set "Sold Out", edit 'available: false' directly in src/data/products.js
-    setStoreProducts(staticProducts);
-  }, []);
+  // Removed useEffect for manual control since we pass staticProducts directly now
 
   const addToCart = (product) => {
     // TODO: integrate with Shopify Checkout
@@ -35,13 +31,13 @@ function App() {
         <Header cartCount={cartItems.length} onZoomClick={toggleZoom} />
 
         <Routes>
-          <Route path="/" element={<Home products={storeProducts} addToCart={addToCart} />} />
-          <Route path="/womens" element={<Home products={storeProducts} addToCart={addToCart} />} />
-          <Route path="/new" element={<Home products={storeProducts} addToCart={addToCart} />} />
-          <Route path="/slides" element={<Home products={storeProducts} addToCart={addToCart} />} />
-          <Route path="/all" element={<AllProducts products={storeProducts} />} />
+          <Route path="/" element={<Home products={staticProducts} addToCart={addToCart} />} />
+          <Route path="/womens" element={<Home products={staticProducts} addToCart={addToCart} />} />
+          <Route path="/new" element={<Home products={staticProducts} addToCart={addToCart} />} />
+          <Route path="/slides" element={<Home products={staticProducts} addToCart={addToCart} />} />
+          <Route path="/all" element={<AllProducts products={staticProducts} />} />
 
-          <Route path="/product/:id" element={<ProductDetail products={storeProducts} addToCart={addToCart} />} />
+          <Route path="/product/:id" element={<ProductDetail products={staticProducts} addToCart={addToCart} />} />
           <Route path="/cart" element={<Cart cartItems={cartItems} />} />
         </Routes>
       </div>
