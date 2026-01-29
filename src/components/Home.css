@@ -60,16 +60,20 @@
 }
 
 .featured-products {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
     width: 100%;
+    max-width: 1200px;
+    /* Constrain width for large screens */
     margin-bottom: 40px;
+    padding: 0 20px;
 }
 
-/* Make the single drop item larger */
-.featured-products .product-card {
-    width: 100%;
-    max-width: 500px;
+@media (max-width: 768px) {
+    .featured-products {
+        grid-template-columns: 1fr;
+    }
 }
 
 .no-products {
