@@ -35,8 +35,8 @@
 }
 
 .product-detail-logo {
-    width: 60px;
-    height: auto;
+    width: auto;
+    height: 80px;
     object-fit: contain;
     margin-bottom: 20px;
 }
