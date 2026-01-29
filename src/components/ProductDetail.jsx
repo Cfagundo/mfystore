@@ -99,16 +99,25 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
         setIsAdding(true);
 
         // Find specific variant ID for the selected size
-        const targetVariant = product.variants?.find(v => v.color === selectedColor);
+        // If no color selected (default view), use the first variant (Black) as default
+        const targetVariant = product.variants?.find(v => v.color === selectedColor) || product.variants?.[0];
         const specificVariantId = targetVariant?.sizeIds?.[selectedSize];
+
+        // Ensure we capture the correct color (e.g. if default was used)
+        const finalColor = selectedColor || targetVariant?.color;
+
+        // Recalculate dynamic code if we fell back to default
+        const finalCode = finalColor
+            ? `${baseName} - ${getColorName(finalColor)}`
+            : dynamicProductCode;
 
         // Pass the dynamic name/code to the cart item
         addToCart({
             ...product,
             shopifyId: specificVariantId, // Store the specific Size Variant ID
-            code: dynamicProductCode, // Override code/name
-            name: dynamicProductCode, // Also update name if used
-            color: selectedColor,
+            code: finalCode, // Override code/name
+            name: finalCode, // Also update name if used
+            color: finalColor,
             size: selectedSize,
             quantity: quantity,
             price: product.price // Unit price
