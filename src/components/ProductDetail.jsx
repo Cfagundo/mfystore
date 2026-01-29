@@ -91,7 +91,11 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
         ? `${baseName} - ${getColorName(selectedColor)}`
         : baseName;
 
-    const handleSizeSelect = (size) => {
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+
+    const handleAddToCart = () => {
+        if (!selectedSize) return;
         setIsAdding(true);
         // Pass the dynamic name/code to the cart item
         addToCart({
@@ -99,16 +103,27 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
             code: dynamicProductCode, // Override code/name
             name: dynamicProductCode, // Also update name if used
             color: selectedColor,
-            size
+            size: selectedSize,
+            quantity: quantity,
+            price: product.price // Unit price
         });
 
         // Simulate adding delay
         setTimeout(() => {
             setIsAdding(false);
+            setIsSizeSelectorOpen(false);
+            setSelectedSize(null);
+            setQuantity(1);
         }, 1500);
     };
 
-    // ... (rest of logic)
+    // Reset when opening overlay
+    React.useEffect(() => {
+        if (isSizeSelectorOpen) {
+            setSelectedSize(null);
+            setQuantity(1);
+        }
+    }, [isSizeSelectorOpen]);
 
     return (
         <div className="product-detail-container page-transition">
@@ -201,15 +216,56 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                 </div>
                             ) : (
                                 <>
-                                    <div className="size-price">${product.price}</div>
+                                    <div className="size-price">${(product.price * quantity).toFixed(2)}</div>
 
-                                    <div className="size-grid">
+                                    <div className="size-grid" style={{ marginBottom: '20px' }}>
                                         {['SML', 'MED', 'LRG'].map(size => (
-                                            <button key={size} className="size-option" onClick={() => handleSizeSelect(size)}>
+                                            <button
+                                                key={size}
+                                                className={`size-option ${selectedSize === size ? 'active' : ''}`}
+                                                style={selectedSize === size ? { background: '#333', color: '#fff' } : {}}
+                                                onClick={() => setSelectedSize(size)}
+                                            >
                                                 {size}
                                             </button>
                                         ))}
                                     </div>
+
+                                    {/* Bundle / Quantity Selector */}
+                                    <div className="qty-section" style={{ marginBottom: '30px' }}>
+                                        <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '10px' }}>QUANTITY / BUNDLE</div>
+                                        <div className="size-grid">
+                                            {[1, 2, 3].map(qty => (
+                                                <button
+                                                    key={qty}
+                                                    className={`size-option ${quantity === qty ? 'active' : ''}`}
+                                                    style={quantity === qty ? { background: '#333', color: '#fff' } : {}}
+                                                    onClick={() => setQuantity(qty)}
+                                                >
+                                                    {qty === 1 ? '1' : `${qty}-PACK`}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        className="add-to-bag-btn"
+                                        onClick={handleAddToCart}
+                                        disabled={!selectedSize}
+                                        style={{
+                                            width: '100%',
+                                            padding: '15px',
+                                            backgroundColor: selectedSize ? '#000' : '#ccc',
+                                            color: '#fff',
+                                            border: 'none',
+                                            fontSize: '16px',
+                                            fontWeight: 'bold',
+                                            cursor: selectedSize ? 'pointer' : 'not-allowed',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        ADD TO BAG
+                                    </button>
 
                                     <div className="size-footer">
                                         <span className="info-label">INFORMATION</span>
@@ -226,5 +282,6 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
         </div>
     );
 };
+
 
 export default ProductDetail;

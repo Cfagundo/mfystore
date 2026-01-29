@@ -8,7 +8,7 @@ const Cart = ({ cartItems }) => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
-    const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
     const shipping = 0; // Calculated at next step usually
     const taxes = 0;
     const total = subtotal + shipping + taxes;
@@ -25,7 +25,7 @@ const Cart = ({ cartItems }) => {
                 const variantId = variant?.shopifyId || variant?.id || item.id;
                 return {
                     variantId: variantId,
-                    quantity: 1
+                    quantity: item.quantity || 1
                 };
             });
 
@@ -96,8 +96,8 @@ const Cart = ({ cartItems }) => {
                         <div className="cart-items-list">
                             {cartItems.map((item, index) => (
                                 <div key={index} className="cart-item">
-                                    <span>{item.code} {item.size ? `(Size ${item.size})` : ''}</span>
-                                    <span>${item.price.toFixed(2)}</span>
+                                    <span>{item.code} {item.size ? `(Size ${item.size})` : ''} {item.quantity > 1 ? `(x${item.quantity})` : ''}</span>
+                                    <span>${(item.price * (item.quantity || 1)).toFixed(2)}</span>
                                 </div>
                             ))}
                         </div>
