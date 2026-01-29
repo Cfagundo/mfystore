@@ -216,7 +216,9 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                 </div>
                             ) : (
                                 <>
-                                    <div className="size-price">${(product.price * quantity).toFixed(2)}</div>
+                                    <div className="size-price">
+                                        ${quantity === 1 ? '60.00' : (quantity === 2 ? '105.00' : '150.00')}
+                                    </div>
 
                                     <div className="size-grid" style={{ marginBottom: '20px' }}>
                                         {['SML', 'MED', 'LRG'].map(size => (
@@ -233,21 +235,20 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
 
                                     {/* Bundle / Quantity Selector */}
                                     <div className="qty-section" style={{ marginBottom: '30px' }}>
-                                        <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '10px' }}>QUANTITY / BUNDLE</div>
+                                        <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '10px' }}>BUNDLE OPTIONS</div>
                                         <div className="size-grid">
-                                            {[1, 2, 3].map(qty => (
+                                            {[2, 3].map(qty => (
                                                 <button
                                                     key={qty}
                                                     className={`size-option ${quantity === qty ? 'active' : ''}`}
                                                     style={quantity === qty ? { background: '#333', color: '#fff' } : {}}
-                                                    onClick={() => setQuantity(qty)}
+                                                    onClick={() => setQuantity(quantity === qty ? 1 : qty)}
                                                 >
-                                                    {qty === 1 ? '1' : `${qty}-PACK`}
+                                                    {qty}-BUNDLE
                                                 </button>
                                             ))}
                                         </div>
                                     </div>
-
                                     <button
                                         className="add-to-bag-btn"
                                         onClick={handleAddToCart}
