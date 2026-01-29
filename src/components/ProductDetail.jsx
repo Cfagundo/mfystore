@@ -201,7 +201,13 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                     <h1 className="detail-code">{dynamicProductCode}</h1>
                     <p className="detail-price">${product.price}</p>
 
-                    <button className="add-btn" onClick={() => setIsSizeSelectorOpen(true)}>
+                    <button className="add-btn" onClick={() => {
+                        if (!selectedColor) {
+                            alert("Please select a color first.");
+                            return;
+                        }
+                        setIsSizeSelectorOpen(true);
+                    }}>
                         <Plus size={32} />
                     </button>
                 </div>

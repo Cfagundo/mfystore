@@ -9,7 +9,7 @@ const Cart = ({ cartItems }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const calculateItemTotal = (item) => {
-        const qty = item.quantity || 1;
+        const qty = Number(item.quantity) || 1;
         // Bundle Logic Matches ProductDetail
         if (qty === 2) return 105.00;
         if (qty === 3) return 150.00;
