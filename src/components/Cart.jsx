@@ -8,7 +8,15 @@ const Cart = ({ cartItems }) => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    const calculateItemTotal = (item) => {
+        const qty = item.quantity || 1;
+        // Bundle Logic Matches ProductDetail
+        if (qty === 2) return 105.00;
+        if (qty === 3) return 150.00;
+        return item.price * qty;
+    };
+
+    const subtotal = cartItems.reduce((sum, item) => sum + calculateItemTotal(item), 0);
     const shipping = 0; // Calculated at next step usually
     const taxes = 0;
     const total = subtotal + shipping + taxes;
@@ -98,7 +106,7 @@ const Cart = ({ cartItems }) => {
                             {cartItems.map((item, index) => (
                                 <div key={index} className="cart-item">
                                     <span>{item.code} {item.size ? `(Size ${item.size})` : ''} {item.quantity > 1 ? `(x${item.quantity})` : ''}</span>
-                                    <span>${(item.price * (item.quantity || 1)).toFixed(2)}</span>
+                                    <span>${calculateItemTotal(item).toFixed(2)}</span>
                                 </div>
                             ))}
                         </div>
