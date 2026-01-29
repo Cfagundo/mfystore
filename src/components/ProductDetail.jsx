@@ -153,7 +153,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                         ${quantity === 1 ? '60.00' : (quantity === 2 ? '105.00' : '150.00')}
                                     </div>
 
-                                    <div className="size-grid" style={{ marginBottom: '20px' }}>
+                                    <div className="selection-grid">
                                         {['SML', 'MED', 'LRG'].map(size => {
                                             const isSizeAvailable = product.sizeVariants?.[size]?.available !== false;
                                             return (
@@ -171,23 +171,19 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                                 </button>
                                             );
                                         })}
-                                    </div>
 
-                                    {/* Bundle / Quantity Selector */}
-                                    <div className="qty-section" style={{ marginBottom: '20px' }}>
-                                        <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '10px' }}>BUNDLE OPTIONS</div>
-                                        <div className="size-grid">
-                                            {[2, 3].map(qty => (
-                                                <button
-                                                    key={qty}
-                                                    className={`size-option ${quantity === qty ? 'active' : ''}`}
-                                                    style={quantity === qty ? { background: '#333', color: '#fff' } : {}}
-                                                    onClick={() => setQuantity(quantity === qty ? 1 : qty)}
-                                                >
-                                                    {qty}-PACK
-                                                </button>
-                                            ))}
-                                        </div>
+                                        <div className="bundle-label-row">BUNDLE OPTIONS</div>
+
+                                        {[2, 3].map(qty => (
+                                            <button
+                                                key={qty}
+                                                className={`size-option ${quantity === qty ? 'active' : ''}`}
+                                                style={quantity === qty ? { background: '#333', color: '#fff' } : {}}
+                                                onClick={() => setQuantity(quantity === qty ? 1 : qty)}
+                                            >
+                                                {qty}-PACK
+                                            </button>
+                                        ))}
                                     </div>
                                     <button
                                         className="add-to-bag-btn"

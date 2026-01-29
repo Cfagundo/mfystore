@@ -267,7 +267,27 @@
     display: flex;
     gap: 60px;
     margin: 20px 0;
-    /* Reduced from 40px */
+}
+
+.selection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 50px;
+    row-gap: 20px;
+    width: max-content;
+    margin: 20px 0;
+    justify-items: start;
+}
+
+.bundle-label-row {
+    grid-column: 1 / -1;
+    text-align: left;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    padding-top: 15px;
+    letter-spacing: 1px;
+    width: 100%;
 }
 
 .size-option {
