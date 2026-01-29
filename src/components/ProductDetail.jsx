@@ -148,6 +148,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
 
             {/* Main Product View */}
             <div className="product-detail-main">
+                <img src="/mfy-logo.png" alt="MFY" className="product-detail-logo" />
 
                 <div className="color-selector">
                     {['#000000', '#3F3F3F', '#B8B8B8'].map(color => (

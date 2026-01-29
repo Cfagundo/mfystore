@@ -100,9 +100,7 @@ const Header = ({ cartCount, onZoomClick }) => {
                     {isDay ? <Sun size={16} fill="black" stroke="none" /> : <Moon size={16} fill="black" stroke="none" />}
                 </div>
 
-                {isProductPage && (
-                    <img src="/mfy-logo.png" alt="MFY" className="header-logo-small" />
-                )}
+
                 <Link to="/cart" className="cart-icon-container">
                     <ShoppingBag size={20} strokeWidth={1} />
                     {cartCount > 0 && <span className="cart-count">{cartCount}</span>}

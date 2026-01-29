@@ -34,6 +34,13 @@
     position: relative;
 }
 
+.product-detail-logo {
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
 .color-selector {
     display: flex;
     gap: 15px;
