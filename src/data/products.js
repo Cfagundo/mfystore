@@ -27,7 +27,7 @@ export const products = [
         imageId: 2,
         image: '/product-dark.png',
         images: ['/product-dark.png', '/slide2.svg', '/slide3.svg'],
-        available: true,
+        available: false,
         sizeVariants: {
             'SML': 'gid://shopify/ProductVariant/52857919242547',
             'MED': 'gid://shopify/ProductVariant/53009335943475',
@@ -45,7 +45,7 @@ export const products = [
         imageId: 3,
         image: '/product-grey.png',
         images: ['/product-grey.png', '/slide2.svg', '/slide3.svg'],
-        available: true,
+        available: false,
         sizeVariants: {
             'SML': 'gid://shopify/ProductVariant/52857919275315',
             'MED': 'gid://shopify/ProductVariant/53009336009011',
