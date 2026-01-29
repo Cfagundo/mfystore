@@ -225,7 +225,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                             </div>
 
                             {currentVariant?.available === false ? (
-                                <div className="sold-out-overlay-msg" style={{ textAlign: 'center', padding: '40px 0' }}>
+                                <div className="sold-out-overlay-msg" style={{ textAlign: 'center', padding: '20px 0' }}>
                                     <h3 style={{ fontSize: '24px', marginBottom: '10px' }}>SOLD OUT</h3>
                                     <p style={{ color: '#666' }}>This color is currently out of stock.</p>
                                 </div>
@@ -249,7 +249,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                     </div>
 
                                     {/* Bundle / Quantity Selector */}
-                                    <div className="qty-section" style={{ marginBottom: '30px' }}>
+                                    <div className="qty-section" style={{ marginBottom: '20px' }}>
                                         <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '10px' }}>BUNDLE OPTIONS</div>
                                         <div className="size-grid">
                                             {[2, 3].map(qty => (

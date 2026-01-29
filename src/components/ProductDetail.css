@@ -200,8 +200,12 @@
     backdrop-filter: blur(10px);
     z-index: 200;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    /* Ensure vertical stacking context */
+    overflow-y: auto;
+    /* Enable scrolling on the container */
+    padding: 0;
+    /* Let content margin handle spacing */
     animation: fadeIn 0.2s ease-out;
 }
 
@@ -218,10 +222,17 @@
 .size-selector-content {
     width: 100%;
     max-width: 600px;
+    margin: auto;
+    /* Centers in free space, top-aligns in negative space */
+    flex-shrink: 0;
+    /* Prevent content from squishing */
+    padding: 40px 20px;
+    /* Vertical padding for scroll clearance */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 25px;
+    /* Reduced from 40px to fit better */
 }
 
 .size-header {
@@ -248,7 +259,8 @@
 .size-grid {
     display: flex;
     gap: 60px;
-    margin: 40px 0;
+    margin: 20px 0;
+    /* Reduced from 40px */
 }
 
 .size-option {
@@ -269,7 +281,8 @@
     font-family: var(--font-main);
     font-size: 14px;
     letter-spacing: 1px;
-    margin-top: 40px;
+    margin-top: 25px;
+    /* Reduced from 40px */
     text-align: center;
     max-width: 550px;
     /* Increased from 400px */
