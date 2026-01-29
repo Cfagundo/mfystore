@@ -45,7 +45,8 @@ const Header = ({ cartCount, onZoomClick }) => {
     const hours = currentTime.getHours();
     const minutes = currentTime.getMinutes().toString().padStart(2, '0');
     const seconds = currentTime.getSeconds().toString().padStart(2, '0');
-    const displayHours = hours % 12 || 12;
+    // Military Time (24h) format as requested
+    const displayHours = hours.toString().padStart(2, '0');
     const isDay = hours >= 6 && hours < 18;
 
     const timeString = `${displayHours}:${minutes}:${seconds}`;
