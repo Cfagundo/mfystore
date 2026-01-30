@@ -7,8 +7,8 @@ export const products = [
         category: 'womens',
         color: '#000000',
         imageId: 1,
-        image: '/product.png',
-        images: ['/product.png', '/product-model1.png', '/product-model2.png'],
+        image: '/product1.png',
+        images: ['/product1.png', '/product2.png', '/product-model1.png', '/product-model2.png'],
         available: true,
         sizeVariants: {
             'SML': { id: 'gid://shopify/ProductVariant/52857919209779', available: true },
@@ -25,8 +25,8 @@ export const products = [
         category: 'womens',
         color: '#3F3F3F',
         imageId: 2,
-        image: '/product-dark.png',
-        images: ['/product-dark.png', '/slide2.svg', '/slide3.svg'],
+        image: '/product-dark1.png',
+        images: ['/product-dark1.png', '/product-dark2.png', '/product-dark-model1.png', '/product-dark-model2.png'],
         available: true,
         sizeVariants: {
             'SML': { id: 'gid://shopify/ProductVariant/52857919242547', available: true },
@@ -43,8 +43,8 @@ export const products = [
         category: 'womens',
         color: '#B8B8B8',
         imageId: 3,
-        image: '/product-grey.png',
-        images: ['/product-grey.png', '/slide2.svg', '/slide3.svg'],
+        image: '/product-grey1.png',
+        images: ['/product-grey1.png', '/product-grey2.png', '/product-grey-model1.png', '/product-grey-model2.png'],
         available: true,
         sizeVariants: {
             'SML': { id: 'gid://shopify/ProductVariant/52857919275315', available: true },
