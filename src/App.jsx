@@ -21,6 +21,12 @@ function App() {
     setCartItems([...cartItems, product]);
   };
 
+  const removeFromCart = (index) => {
+    const newCart = [...cartItems];
+    newCart.splice(index, 1);
+    setCartItems(newCart);
+  };
+
   const toggleZoom = () => {
     setZoomLevel((prev) => (prev + 1) % 3);
   };
@@ -38,7 +44,7 @@ function App() {
           <Route path="/all" element={<AllProducts products={staticProducts} />} />
 
           <Route path="/product/:id" element={<ProductDetail products={staticProducts} addToCart={addToCart} />} />
-          <Route path="/cart" element={<Cart cartItems={cartItems} />} />
+          <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} />} />
         </Routes>
       </div>
     </Router>

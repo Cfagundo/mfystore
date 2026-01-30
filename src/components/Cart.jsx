@@ -4,7 +4,7 @@ import { ChevronLeft, ArrowLeft } from 'lucide-react';
 import { createCheckout, addItemToCheckout } from '../shopify'; // Import Shopify helpers
 import './Cart.css';
 
-const Cart = ({ cartItems }) => {
+const Cart = ({ cartItems, removeFromCart }) => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -105,7 +105,26 @@ const Cart = ({ cartItems }) => {
                         <div className="cart-items-list">
                             {cartItems.map((item, index) => (
                                 <div key={index} className="cart-item">
-                                    <span>{item.code} {item.size ? `(Size ${item.size})` : ''} {item.quantity > 1 ? `(x${item.quantity})` : ''}</span>
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <span>{item.code} {item.size ? `(Size ${item.size})` : ''} {item.quantity > 1 ? `(x${item.quantity})` : ''}</span>
+                                        <button
+                                            onClick={() => removeFromCart(index)}
+                                            style={{
+                                                background: 'none',
+                                                border: 'none',
+                                                padding: 0,
+                                                textAlign: 'left',
+                                                textDecoration: 'underline',
+                                                fontSize: '10px',
+                                                cursor: 'pointer',
+                                                color: '#666',
+                                                marginTop: '5px',
+                                                width: 'fit-content'
+                                            }}
+                                        >
+                                            REMOVE
+                                        </button>
+                                    </div>
                                     <span>${calculateItemTotal(item).toFixed(2)}</span>
                                 </div>
                             ))}
