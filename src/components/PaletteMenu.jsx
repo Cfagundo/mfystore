@@ -127,7 +127,7 @@ const PaletteMenu = ({ onFilter, onAction, activeFilter }) => {
                 })}
             </div>
             <div className="palette-footer-text">
-                <span className="scrolling-text-content">matte for you</span>
+                <span className="scrolling-text-content">matte for you • [concrete collection]</span>
             </div>
         </div>
     );
