@@ -70,7 +70,7 @@ const PaletteMenu = ({ onFilter, onAction, activeFilter }) => {
             type: 'action',
             action: 'about',
             color: '#3F3F3F',
-            label: 'ABOUT US',
+            label: 'FAQ',
             bgColor: '#FCFCFC',
             textColor: '#000'
         },

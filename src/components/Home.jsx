@@ -74,7 +74,7 @@ const Home = ({ products }) => {
 
             {/* About Section */}
             <div ref={aboutRef} id="about-section" className="about-section container">
-                <h2>ABOUT MFY</h2>
+                <h2>FAQ</h2>
                 <p>
                     We are MFY, dedicated to bringing you the most comfortable, sleek aesthetic.
                 </p>
