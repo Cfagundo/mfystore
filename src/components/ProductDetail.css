@@ -397,9 +397,8 @@
     align-items: center;
     gap: 20px;
     padding: 10px 20px;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    background-color: #f9f9f9;
+    border: none;
+    background-color: transparent;
 }
 
 .qty-btn {
@@ -426,10 +425,11 @@
 }
 
 .bundle-hint {
-    font-size: 12px;
-    color: #666;
+    font-family: var(--font-main);
+    font-size: 13px;
+    color: #000;
     margin-top: 8px;
-    font-weight: 500;
+    font-weight: bold;
     letter-spacing: 0.5px;
     animation: fadeInHint 0.3s ease-out;
 }
