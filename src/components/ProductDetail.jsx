@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Plus, X, ArrowLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus, Minus, X, ArrowLeft } from 'lucide-react';
 import { products } from '../data/products';
 import './ProductDetail.css';
 
@@ -150,7 +150,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                             ) : (
                                 <>
                                     <div className="size-price">
-                                        ${quantity === 1 ? '60.00' : (quantity === 2 ? '105.00' : '150.00')}
+                                        ${(quantity === 1 ? 60 : quantity === 2 ? 105 : quantity === 3 ? 150 : quantity * 60).toFixed(2)}
                                     </div>
 
                                     <div className="selection-grid">
@@ -172,19 +172,23 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                             );
                                         })}
 
-                                        <div className="bundle-label-row">BUNDLE OPTIONS</div>
 
-                                        {[2, 3].map(qty => (
-                                            <button
-                                                key={qty}
-                                                className={`size-option ${quantity === qty ? 'active' : ''}`}
-                                                style={quantity === qty ? { background: '#333', color: '#fff' } : {}}
-                                                onClick={() => setQuantity(quantity === qty ? 1 : qty)}
-                                            >
-                                                {qty}-PACK
-                                            </button>
-                                        ))}
                                     </div>
+
+                                    <div className="quantity-section">
+                                        <div className="quantity-selector">
+                                            <button className="qty-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>
+                                                <Minus size={16} />
+                                            </button>
+                                            <span className="qty-value">{quantity}</span>
+                                            <button className="qty-btn" onClick={() => setQuantity(q => q + 1)}>
+                                                <Plus size={16} />
+                                            </button>
+                                        </div>
+                                        {quantity === 2 && <div className="bundle-hint">Buy 2 for $105</div>}
+                                        {quantity === 3 && <div className="bundle-hint">Buy 3 for $150</div>}
+                                    </div>
+
                                     <button
                                         className="add-to-bag-btn"
                                         onClick={handleAddToCart}
