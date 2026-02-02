@@ -135,7 +135,7 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                     ) : (
                         <div className="size-selector-content">
                             <div className="size-header">
-                                <span className="help-icon">?</span>
+                                <span className="help-icon" style={{ opacity: 0 }}>?</span>
                                 <h2>{product.available === false ? 'UNAVAILABLE' : 'SELECT SIZE'}</h2>
                                 <button className="close-btn" onClick={() => setIsSizeSelectorOpen(false)}>
                                     <X size={24} />
