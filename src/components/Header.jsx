@@ -96,7 +96,7 @@ const Header = ({ cartCount, onZoomClick }) => {
 
             <div className="header-right">
                 <div className="time-display">
-                    <span className="est-label" style={{ marginRight: '8px' }}>{timezone}</span>
+
                     <span className="time-text">{timeString}</span>
                     {isDay ? <Sun size={16} fill="black" stroke="none" /> : <Moon size={16} fill="black" stroke="none" />}
                 </div>
