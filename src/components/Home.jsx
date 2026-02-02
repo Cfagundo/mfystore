@@ -147,9 +147,22 @@ const Home = ({ products }) => {
                         <button className="modal-close" onClick={closeModal}><X /></button>
                         <h2>FOLLOW US</h2>
                         <div className="social-links" style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', gap: '20px' }}>
-                            {/* Placeholders for icons */}
-                            <button style={{ fontSize: '20px', fontWeight: 'bold' }}>INSTAGRAM</button>
-                            <button style={{ fontSize: '20px', fontWeight: 'bold' }}>TIKTOK</button>
+                            <a
+                                href="https://www.instagram.com/matteforyouswim/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ fontSize: '20px', fontWeight: 'bold', color: '#000', textDecoration: 'none' }}
+                            >
+                                INSTAGRAM
+                            </a>
+                            <a
+                                href="https://www.tiktok.com/@matteforyouswim"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ fontSize: '20px', fontWeight: 'bold', color: '#000', textDecoration: 'none' }}
+                            >
+                                TIKTOK
+                            </a>
                         </div>
                     </div>
                 </div>
