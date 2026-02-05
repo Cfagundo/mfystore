@@ -75,21 +75,53 @@ const Home = ({ products }) => {
             {/* About Section */}
             <div ref={aboutRef} id="about-section" className="about-section container">
                 <h2>FAQ</h2>
-                <p>
-                    We are MFY, dedicated to bringing you the most comfortable, sleek aesthetic.
-                </p>
-                <p>
-                    Our current palette features #000000 (matte black), #3F3F3F (matte grey), and #B8B8B8 (matte white).
-                </p>
-                <p>
-                    Contact us to join our affiliate program to earn while you wear.
-                </p>
-                <p>
-                    All inventory is held in-house and ships between 2-3 days.
-                </p>
-                <p>
-                    This is season 01!
-                </p>
+                <div className="faq-content">
+                    <div className="faq-item">
+                        <strong>Is Product Inventory kept in house or Pre-Order?</strong>
+                        <p>All product inventory is kept in house and ships in 1-2 days after order is placed.</p>
+                    </div>
+                    <div className="faq-item">
+                        <strong>Does this run true to size?</strong>
+                        <p>Yes. Our products run true to size!</p>
+                    </div>
+                    <div className="faq-item">
+                        <strong>Is the fabric see-through?</strong>
+                        <p>No. The 220–240 GSM provides excellent coverage, structure, and a smooth finish—no sheerness when wet.</p>
+                    </div>
+                    <div className="faq-item">
+                        <strong>How does it feel on the body?</strong>
+                        <p>Smooth, supportive, and slightly compressive. It hugs without digging in and retains its shape wear after wear. The fabric has high stretch and recovery, with elastane content designed to move with your body and snap back into place.</p>
+                    </div>
+                    <div className="faq-item">
+                        <strong>Does it provide support?</strong>
+                        <p>Yes. The density and elastane blend offer natural compression and hold, helping sculpt and support without feeling restrictive.</p>
+                    </div>
+                    <div className="faq-item">
+                        <strong>Is it sustainable?</strong>
+                        <p>Yes. The elastane blend ensures excellent shape retention, even with regular swimming and sun exposure. With proper care, fading and peeling are minimal. The fabric is engineered for color retention and durability.</p>
+                    </div>
+                    <div className="faq-item">
+                        <strong>Is it chlorine and salt-water safe?</strong>
+                        <p>Yes. The fabric and heat-transfer logos are chlorine resistant, making it suitable for pools, oceans, and frequent wear.</p>
+                    </div>
+                    <div className="faq-item">
+                        <strong>Is it quick-drying?</strong>
+                        <p>Yes. Recycled nylon dries quickly and doesn’t stay heavy or water-logged after swimming.</p>
+                    </div>
+                    <div className="faq-item">
+                        <strong>How should I care for it?</strong>
+                        <ul style={{ paddingLeft: '20px', margin: '10px 0' }}>
+                            <li>Rinse in cold water after use</li>
+                            <li>Hand wash or gentle cycle</li>
+                            <li>Lay flat to dry</li>
+                            <li>Avoid bleach, and fabric softeners</li>
+                        </ul>
+                    </div>
+                    <div className="faq-item">
+                        <strong>Can I return the swimsuit after purchase?</strong>
+                        <p>For hygienic purposes, swimwear is final sale and cannot be returned or exchanged.</p>
+                    </div>
+                </div>
             </div>
 
             {/* Modals */}
