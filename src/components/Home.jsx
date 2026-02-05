@@ -79,7 +79,7 @@ const Home = ({ products }) => {
                     We are MFY, dedicated to bringing you the most comfortable, sleek aesthetic.
                 </p>
                 <p>
-                    Our current palette features #000000 (matte black), #3F3F3F (matte silver), and #B8B8B8 (matte white).
+                    Our current palette features #000000 (matte black), #3F3F3F (matte grey), and #B8B8B8 (matte white).
                 </p>
                 <p>
                     Contact us to join our affiliate program to earn while you wear.

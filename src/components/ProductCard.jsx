@@ -11,7 +11,7 @@ const ProductCard = ({ product, displayColor }) => {
         switch (hex) {
             case '#000000': return 'MATTE BLACK';
             case '#3F3F3F': return 'MATTE GREY';
-            case '#B8B8B8': return 'MATTE SILVER';
+            case '#B8B8B8': return 'MATTE WHITE';
             default: return '';
         }
     };

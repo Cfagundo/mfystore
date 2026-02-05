@@ -26,7 +26,7 @@ const PaletteMenu = ({ onFilter, onAction, activeFilter }) => {
             type: 'filter',
             color: '#B8B8B8',
             label: '#B8B8B8',
-            subLabel: 'MATTE SILVER PRODUCTS',
+            subLabel: 'MATTE WHITE PRODUCTS',
             bgColor: '#484848',
             textColor: '#fff'
         },

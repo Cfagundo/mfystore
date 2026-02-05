@@ -37,8 +37,8 @@ export const products = [
     },
     {
         id: 'op-03',
-        code: 'ONE PIECE - MATTE SILVER',
-        name: 'One Piece - Matte Silver',
+        code: 'ONE PIECE - MATTE WHITE',
+        name: 'One Piece - Matte White',
         price: 60,
         category: 'womens',
         color: '#B8B8B8',

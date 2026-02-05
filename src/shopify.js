@@ -99,8 +99,8 @@ const mapColorToHex = (name) => {
     // Standard mappings
     if (n.includes('black')) return '#000000';
     if (n.includes('grey') || n.includes('gray') || n.includes('anthracite')) return '#3F3F3F';
-    if (n.includes('silver') || n.includes('light grey')) return '#B8B8B8';
-    if (n.includes('white')) return '#FFFFFF';
+    if (n.includes('white') || n.includes('light grey')) return '#B8B8B8';
+
     if (n.includes('red') || n.includes('burgundy')) return '#8B0000';
     if (n.includes('blue') || n.includes('navy')) return '#000080';
     if (n.includes('green') || n.includes('olive')) return '#556B2F';
