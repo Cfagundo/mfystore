@@ -15,7 +15,19 @@ export const products = [
             'MED': { id: 'gid://shopify/ProductVariant/53009335877939', available: true },
             'LRG': { id: 'gid://shopify/ProductVariant/53009335910707', available: true }
         },
-        description: "Constructed from a premium, high-stretch technical blend, this swimsuit provides a smooth, second-skin feel that sculpts and supports without restricting movement. The material features a sophisticated matte finish and is detailed with durable, exposed overlock stitching along the contours to ensure shape retention and long-lasting wear."
+        description: `Sleek. Sculpted. Sexy.
+This signature one-piece features a zip-front plunge, low open back, and high-cut leg for a confident fit. Designed to hug the body with a smooth, matte finish and just-enough cheek.
+
+fabric:
+
+Premium recycled nylon blend: 
+78% nylon / 22% elastane, with high stretch matte finish.
+Soft stretch lining for comfort and support.
+
+size & fit
+
+Runs true to size.
+Second-skin compression with flexible stretch`
     },
     {
         id: 'op-02',
@@ -33,7 +45,19 @@ export const products = [
             'MED': { id: 'gid://shopify/ProductVariant/53009335943475', available: true },
             'LRG': { id: 'gid://shopify/ProductVariant/53009335976243', available: true }
         },
-        description: "Constructed from a premium, high-stretch technical blend, this swimsuit provides a smooth, second-skin feel that sculpts and supports without restricting movement. The material features a sophisticated matte finish and is detailed with durable, exposed overlock stitching along the contours to ensure shape retention and long-lasting wear."
+        description: `Sleek. Sculpted. Sexy.
+This signature one-piece features a zip-front plunge, low open back, and high-cut leg for a confident fit. Designed to hug the body with a smooth, matte finish and just-enough cheek.
+
+fabric:
+
+Premium recycled nylon blend: 
+78% nylon / 22% elastane, with high stretch matte finish.
+Soft stretch lining for comfort and support.
+
+size & fit
+
+Runs true to size.
+Second-skin compression with flexible stretch`
     },
     {
         id: 'op-03',
@@ -51,6 +75,18 @@ export const products = [
             'MED': { id: 'gid://shopify/ProductVariant/53009336009011', available: true },
             'LRG': { id: 'gid://shopify/ProductVariant/53009336041779', available: true }
         },
-        description: "Constructed from a premium, high-stretch technical blend, this swimsuit provides a smooth, second-skin feel that sculpts and supports without restricting movement. The material features a sophisticated matte finish and is detailed with durable, exposed overlock stitching along the contours to ensure shape retention and long-lasting wear."
+        description: `Sleek. Sculpted. Sexy.
+This signature one-piece features a zip-front plunge, low open back, and high-cut leg for a confident fit. Designed to hug the body with a smooth, matte finish and just-enough cheek.
+
+fabric:
+
+Premium recycled nylon blend: 
+78% nylon / 22% elastane, with high stretch matte finish.
+Soft stretch lining for comfort and support.
+
+size & fit
+
+Runs true to size.
+Second-skin compression with flexible stretch`
     }
 ];
