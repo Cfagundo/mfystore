@@ -16,17 +16,11 @@ export const products = [
             'LRG': { id: 'gid://shopify/ProductVariant/53009335910707', available: true }
         },
         description: `Sleek. Sculpted. Sexy.
-This signature one-piece features a zip-front plunge, low open back, and high-cut leg for a confident fit. Designed to hug the body with a smooth, matte finish and just-enough cheek.
-
-fabric:
-
-Premium recycled nylon blend: 
+This signature one-piece features a zip-front plunge, low open back, and high-cut leg for a confident fit. Designed to hug the body with a smooth, matte finish and just-enough cheek.`,
+        fabric: `Premium recycled nylon blend: 
 78% nylon / 22% elastane, with high stretch matte finish.
-Soft stretch lining for comfort and support.
-
-size & fit
-
-Runs true to size.
+Soft stretch lining for comfort and support.`,
+        fit: `Runs true to size.
 Second-skin compression with flexible stretch`
     },
     {
@@ -46,17 +40,11 @@ Second-skin compression with flexible stretch`
             'LRG': { id: 'gid://shopify/ProductVariant/53009335976243', available: true }
         },
         description: `Sleek. Sculpted. Sexy.
-This signature one-piece features a zip-front plunge, low open back, and high-cut leg for a confident fit. Designed to hug the body with a smooth, matte finish and just-enough cheek.
-
-fabric:
-
-Premium recycled nylon blend: 
+This signature one-piece features a zip-front plunge, low open back, and high-cut leg for a confident fit. Designed to hug the body with a smooth, matte finish and just-enough cheek.`,
+        fabric: `Premium recycled nylon blend: 
 78% nylon / 22% elastane, with high stretch matte finish.
-Soft stretch lining for comfort and support.
-
-size & fit
-
-Runs true to size.
+Soft stretch lining for comfort and support.`,
+        fit: `Runs true to size.
 Second-skin compression with flexible stretch`
     },
     {

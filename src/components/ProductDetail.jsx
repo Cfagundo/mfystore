@@ -209,10 +209,26 @@ const ProductDetail = ({ addToCart, products: propProducts }) => {
                                     </button>
 
                                     <div className="size-footer">
-                                        <span className="info-label">INFORMATION</span>
-                                        <p className="info-text">
-                                            {product.description || "Material and care information coming soon."}
-                                        </p>
+                                        {product.description && (
+                                            <div className="info-block" style={{ marginBottom: '25px' }}>
+                                                <span className="info-label">DESCRIPTION</span>
+                                                <p className="info-text" style={{ marginTop: '8px' }}>{product.description}</p>
+                                            </div>
+                                        )}
+
+                                        {product.fabric && (
+                                            <div className="info-block" style={{ marginBottom: '25px' }}>
+                                                <span className="info-label">FABRIC</span>
+                                                <p className="info-text" style={{ marginTop: '8px' }}>{product.fabric}</p>
+                                            </div>
+                                        )}
+
+                                        {product.fit && (
+                                            <div className="info-block" style={{ marginBottom: '25px' }}>
+                                                <span className="info-label">SIZE & FIT</span>
+                                                <p className="info-text" style={{ marginTop: '8px' }}>{product.fit}</p>
+                                            </div>
+                                        )}
                                     </div>
                                 </>
                             )}
