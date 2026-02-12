@@ -130,22 +130,29 @@ const Home = ({ products }) => {
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
                         <button className="modal-close" onClick={closeModal}><X /></button>
                         <h2>AFFILIATE SIGN-UP</h2>
-                        <form>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            const formData = new FormData(e.target);
+                            const data = Object.fromEntries(formData.entries());
+                            console.log('Affiliate Signup:', data);
+                            alert('Thank you for applying! We will be in touch shortly.');
+                            closeModal();
+                        }}>
                             <div className="input-group">
                                 <label>FIRST NAME</label>
-                                <input type="text" className="input-field" />
+                                <input name="firstName" type="text" className="input-field" required />
                             </div>
                             <div className="input-group">
                                 <label>LAST NAME</label>
-                                <input type="text" className="input-field" />
+                                <input name="lastName" type="text" className="input-field" required />
                             </div>
                             <div className="input-group">
                                 <label>INSTAGRAM HANDLE</label>
-                                <input type="text" className="input-field" />
+                                <input name="instagram" type="text" className="input-field" required />
                             </div>
                             <div className="input-group">
                                 <label>PHONE NUMBER</label>
-                                <input type="tel" className="input-field" />
+                                <input name="phone" type="tel" className="input-field" required placeholder="+1 (555) 000-0000" />
                             </div>
                             <button type="submit" className="submit-btn">SUBMIT REQUEST</button>
                         </form>
